@@ -12,7 +12,7 @@ TreeNode::TreeNode(int lineno, NodeType type) {
 }
 
 void TreeNode::genNodeId() {
-
+  printf("%d",)
 }
 
 void TreeNode::printNodeInfo() {
