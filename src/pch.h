@@ -14,6 +14,8 @@
 #include <list>
 #include <assert.h>
 
+#include <stdio.h>
+
 #include <map>
 #include <stack>
 #include <unordered_map>

@@ -3,6 +3,7 @@
 #include "common.h"
 #include "main.tab.h"  // yacc header
 int lineno=1;
+
 %}
 BLOCKCOMMENT \/\*([^\*^\/]*|[\*^\/*]*|[^\**\/]*)*\*\/
 LINECOMMENT \/\/[^\n]*
@@ -15,6 +16,7 @@ CHAR \'.?\'
 STRING \".+\"
 
 IDENTIFIER [[:alpha:]_][[:alpha:][:digit:]_]*
+
 %%
 
 {BLOCKCOMMENT}  /* do nothing */
@@ -28,6 +30,14 @@ IDENTIFIER [[:alpha:]_][[:alpha:][:digit:]_]*
 "=" return LOP_ASSIGN;
 
 ";" return  SEMICOLON;
+
+"while" return WHILE;
+"if" return IF;
+"else" return ELSE;
+"for" return FOR;
+"return" return RET;
+"(" return LP;
+")" return RP;
 
 {INTEGER} {
     TreeNode* node = new TreeNode(lineno, NODE_CONST);

@@ -1,0 +1,13 @@
+lno0  @0   prog children:[ @1 @5 @9 ]
+lno1  @1   stmt children:[ @2 @3 @4 ]
+lno1  @2   type type:char
+lno1  @3   var varname:a
+lno1  @4   const type:int
+lno2  @5   stmt children:[ @6 @7 @8 ]
+lno2  @6   type type:int
+lno2  @7   var varname:b
+lno2  @8   const type:int
+lno3  @9   stmt children:[ @10 @11 @12 ]
+lno3  @10   type type:int
+lno3  @11   var varname:c
+lno3  @12   const type:int

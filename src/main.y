@@ -5,13 +5,15 @@
     extern int lineno;
     int yylex();
     int yyerror( char const * );
+
 %}
 %token T_CHAR T_INT T_STRING T_BOOL 
 
 %token LOP_ASSIGN 
 
 %token SEMICOLON
-
+%token WHILE IF ELSE FOR RET
+%token LP RP
 %token IDENTIFIER INTEGER CHAR BOOL STRING
 
 %left LOP_EQ
@@ -29,6 +31,7 @@ statements
 statement
 : SEMICOLON  {$$ = new TreeNode(lineno, NODE_STMT); $$->stype = STMT_SKIP;}
 | declaration SEMICOLON {$$ = $1;}
+| IF LP expr RP
 ;
 
 declaration
@@ -64,7 +67,7 @@ expr
 }
 ;
 
-T: T_INT {$$ = new TreeNode(lineno, NODE_TYPE); $$->type = TYPE_INT;} 
+T: T_INT {$$ = new TreeNode(lineno, NODE_TYPE); $$->type = TYPE_INT;}
 | T_CHAR {$$ = new TreeNode(lineno, NODE_TYPE); $$->type = TYPE_CHAR;}
 | T_BOOL {$$ = new TreeNode(lineno, NODE_TYPE); $$->type = TYPE_BOOL;}
 ;

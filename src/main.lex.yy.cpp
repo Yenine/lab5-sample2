@@ -474,8 +474,9 @@ char *yytext;
 #include "common.h"
 #include "main.tab.h"  // yacc header
 int lineno=1;
-#line 478 "src/main.lex.yy.cpp"
+
 #line 479 "src/main.lex.yy.cpp"
+#line 480 "src/main.lex.yy.cpp"
 
 #define INITIAL 0
 
@@ -690,10 +691,10 @@ YY_DECL
 		}
 
 	{
-#line 18 "src/main.lex"
+#line 19 "src/main.lex"
 
 
-#line 697 "src/main.lex.yy.cpp"
+#line 698 "src/main.lex.yy.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -753,42 +754,42 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 20 "src/main.lex"
+#line 21 "src/main.lex"
 /* do nothing */
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 21 "src/main.lex"
+#line 22 "src/main.lex"
 /* do nothing */
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 24 "src/main.lex"
+#line 25 "src/main.lex"
 return T_INT;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 25 "src/main.lex"
+#line 26 "src/main.lex"
 return T_BOOL;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 26 "src/main.lex"
+#line 27 "src/main.lex"
 return T_CHAR;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 28 "src/main.lex"
+#line 29 "src/main.lex"
 return LOP_ASSIGN;
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 30 "src/main.lex"
+#line 31 "src/main.lex"
 return  SEMICOLON;
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 32 "src/main.lex"
+#line 33 "src/main.lex"
 {
     TreeNode* node = new TreeNode(lineno, NODE_CONST);
     node->type = TYPE_INT;
@@ -799,7 +800,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 40 "src/main.lex"
+#line 41 "src/main.lex"
 {
     TreeNode* node = new TreeNode(lineno, NODE_CONST);
     node->type = TYPE_CHAR;
@@ -810,7 +811,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 48 "src/main.lex"
+#line 49 "src/main.lex"
 {
     TreeNode* node = new TreeNode(lineno, NODE_VAR);
     node->var_name = string(yytext);
@@ -820,28 +821,28 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 55 "src/main.lex"
+#line 56 "src/main.lex"
 /* do nothing */
 	YY_BREAK
 case 12:
 /* rule 12 can match eol */
 YY_RULE_SETUP
-#line 57 "src/main.lex"
+#line 58 "src/main.lex"
 lineno++;
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 59 "src/main.lex"
+#line 60 "src/main.lex"
 {
     cerr << "[line "<< lineno <<" ] unknown character:" << yytext << endl;
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 62 "src/main.lex"
+#line 63 "src/main.lex"
 ECHO;
 	YY_BREAK
-#line 845 "src/main.lex.yy.cpp"
+#line 846 "src/main.lex.yy.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1809,5 +1810,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 62 "src/main.lex"
+#line 63 "src/main.lex"
 

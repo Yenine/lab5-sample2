@@ -1,6 +1,5 @@
 #include "common.h"
 #include <fstream>
-
 extern TreeNode *root;
 extern FILE *yyin;
 extern int yyparse();
