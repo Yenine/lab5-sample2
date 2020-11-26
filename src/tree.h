@@ -13,6 +13,7 @@ enum NodeType
 
     NODE_STMT,
     NODE_PROG,
+    NODE_FUNC,
 };
 
 enum OperatorType
@@ -23,6 +24,7 @@ enum OperatorType
 enum StmtType {
     STMT_SKIP,
     STMT_DECL,
+    STMT_ASSI,
 }
 ;
 

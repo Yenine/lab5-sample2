@@ -1,13 +1,30 @@
-lno0  @0   prog children:[ @1 @5 @9 ]
-lno1  @1   stmt children:[ @2 @3 @4 ]
+helloID a 0
+ID D 1
+helloID a 2
+helloID b 3
+helloID c 4
+lno0  @0   prog children:[ @1 @7 @10 @11 @12 @13 @17 @21 ]
+lno1  @1   stmt children:[ @2 @3 @4 @5 @6 ]stmt:decl
 lno1  @2   type type:char
 lno1  @3   var varname:a
 lno1  @4   const type:int
-lno2  @5   stmt children:[ @6 @7 @8 ]
-lno2  @6   type type:int
-lno2  @7   var varname:b
-lno2  @8   const type:int
-lno3  @9   stmt children:[ @10 @11 @12 ]
-lno3  @10   type type:int
-lno3  @11   var varname:c
-lno3  @12   const type:int
+lno1  @5   var varname:D
+lno1  @6   const type:int
+lno2  @7   stmt children:[ @8 @9 ]stmt:assign
+lno2  @8   var varname:a
+lno2  @9   const type:int
+lno3  @10   
+lno3  @11   type type:int
+lno3  @12   var varname:main
+lno4  @13   stmt children:[ @14 @15 @16 ]stmt:decl
+lno4  @14   type type:int
+lno4  @15   var varname:a
+lno4  @16   const type:int
+lno5  @17   stmt children:[ @18 @19 @20 ]stmt:decl
+lno5  @18   type type:int
+lno5  @19   var varname:b
+lno5  @20   const type:int
+lno6  @21   stmt children:[ @22 @23 @24 ]stmt:decl
+lno6  @22   type type:int
+lno6  @23   var varname:c
+lno6  @24   const type:int

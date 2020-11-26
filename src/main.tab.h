@@ -51,12 +51,22 @@ extern int yydebug;
     T_BOOL = 261,
     LOP_ASSIGN = 262,
     SEMICOLON = 263,
-    IDENTIFIER = 264,
-    INTEGER = 265,
-    CHAR = 266,
-    BOOL = 267,
-    STRING = 268,
-    LOP_EQ = 269
+    COMMA = 264,
+    WHILE = 265,
+    IF = 266,
+    ELSE = 267,
+    FOR = 268,
+    RET = 269,
+    LP = 270,
+    RP = 271,
+    LC = 272,
+    RC = 273,
+    IDENTIFIER = 274,
+    INTEGER = 275,
+    CHAR = 276,
+    BOOL = 277,
+    STRING = 278,
+    LOP_EQ = 279
   };
 #endif
 

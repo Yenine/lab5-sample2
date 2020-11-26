@@ -102,9 +102,21 @@ void TreeNode::printSpecialInfo() {
 //        case NODE_EXPR:
 //          printf("expr");
 //            break;
-//        case NODE_STMT:
-//          printf("stmt");
-//            break;
+        case NODE_STMT:
+          switch (this->stype){
+            case STMT_SKIP:
+              printf("stmt:skip\n");
+              break;
+            case STMT_DECL:
+              printf("stmt:decl\n");
+              break;
+            case STMT_ASSI:
+              printf("stmt:assign\n");
+              break;
+            default:
+              break;
+          }
+            break;
         case NODE_TYPE:
           printf(" type:%s\n",this->type->getTypeInfo().c_str());
           break;

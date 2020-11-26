@@ -30,14 +30,18 @@ IDENTIFIER [[:alpha:]_][[:alpha:][:digit:]_]*
 "=" return LOP_ASSIGN;
 
 ";" return  SEMICOLON;
+"," return COMMA;
+"(" return  LP;
+")" return RP;
+"{" return  LC;
+"}" return RC;
 
 "while" return WHILE;
 "if" return IF;
 "else" return ELSE;
 "for" return FOR;
 "return" return RET;
-"(" return LP;
-")" return RP;
+
 
 {INTEGER} {
     TreeNode* node = new TreeNode(lineno, NODE_CONST);
