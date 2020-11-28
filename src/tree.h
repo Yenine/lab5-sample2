@@ -14,11 +14,24 @@ enum NodeType
     NODE_STMT,
     NODE_PROG,
     NODE_FUNC,
+    NODE_BLOCK,
 };
 
 enum OperatorType
 {
-    OP_EQ,  // ==
+  OP_EQ,  // ==
+  OP_ADD,  // +
+  OP_MINUS,  // -
+  OP_MUL,  // *
+  OP_DIV,  // /
+  OP_GRE,  // >
+  OP_LES,  // <
+  OP_GREEQ,  // >=
+  OP_LESEQ,  // <=
+  OP_UEQ,  // !=
+  OP_AND,  // &&
+  OP_OR,  // ||
+
 };
 
 enum StmtType {
@@ -46,6 +59,8 @@ public:
     void printAST(); // 先输出自己 + 孩子们的id；再依次让每个孩子输出AST。
     void printSpecialInfo();
 
+    void genSymbol();
+
     void genNodeId();
 
 public:
@@ -57,6 +72,7 @@ public:
     bool b_val;
     string str_val;
     string var_name;
+    int var_id;
 public:
     static string nodeType2String (NodeType type);
     static string opType2String (OperatorType type);

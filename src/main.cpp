@@ -7,6 +7,7 @@ extern int yyparse();
 using namespace std;
 int main(int argc, char *argv[])
 {
+
     if (argc == 2)
     {
         FILE *fin = fopen(argv[1], "r");
@@ -22,6 +23,7 @@ int main(int argc, char *argv[])
     yyparse();
     if(root != NULL) {
         root->genNodeId();
+        root->genSymbol();
         root->printAST();
     }
     return 0;

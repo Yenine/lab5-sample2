@@ -1,6 +1,7 @@
 Terminals unused in grammar
 
    T_STRING
+   WHILE
    IF
    ELSE
    FOR
@@ -26,79 +27,108 @@ Grammar
     7 statement: SEMICOLON
     8          | declaration SEMICOLON
     9          | assignment SEMICOLON
-   10          | WHILE block
 
-   11 assignment: IDENTIFIER LOP_ASSIGN expr
+   10 assignment: IDENTIFIER LOP_ASSIGN expr
 
-   12 declaration: T idlist
+   11 declaration: T idlist
 
-   13 idlist: idlist COMMA IDENTIFIER
-   14       | idlist COMMA IDENTIFIER LOP_ASSIGN expr
-   15       | IDENTIFIER
-   16       | IDENTIFIER LOP_ASSIGN expr
+   12 idlist: idlist COMMA IDENTIFIER
+   13       | idlist COMMA IDENTIFIER LOP_ASSIGN expr
+   14       | IDENTIFIER
+   15       | IDENTIFIER LOP_ASSIGN expr
 
-   17 expr: IDENTIFIER
-   18     | INTEGER
-   19     | CHAR
-   20     | STRING
+   16 expr: expr O_AND unit
+   17     | expr O_OR unit
+   18     | expr O_EQ unit
+   19     | expr O_UEQ unit
+   20     | expr O_GRE unit
+   21     | expr O_LES unit
+   22     | expr O_GREEQ unit
+   23     | expr O_LESEQ unit
+   24     | expr O_ADD unit
+   25     | expr O_MINUS unit
+   26     | expr O_MUL unit
+   27     | expr O_DIV unit
+   28     | unit
 
-   21 T: T_INT
-   22  | T_CHAR
-   23  | T_BOOL
+   29 unit: IDENTIFIER
+   30     | INTEGER
+   31     | CHAR
+   32     | STRING
+
+   33 T: T_INT
+   34  | T_CHAR
+   35  | T_BOOL
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
 error (256)
-T_CHAR (258) 22
-T_INT (259) 21
+T_CHAR (258) 34
+T_INT (259) 33
 T_STRING (260)
-T_BOOL (261) 23
-LOP_ASSIGN (262) 11 14 16
-SEMICOLON (263) 7 8 9
-COMMA (264) 13 14
-WHILE (265) 10
-IF (266)
-ELSE (267)
-FOR (268)
-RET (269)
-LP (270) 5
-RP (271) 5
-LC (272) 6
-RC (273) 6
-IDENTIFIER (274) 5 11 13 14 15 16 17
-INTEGER (275) 18
-CHAR (276) 19
-BOOL (277)
-STRING (278) 20
-LOP_EQ (279)
+T_BOOL (261) 35
+LOP_ASSIGN (262) 10 13 15
+O_ADD (263) 24
+O_MINUS (264) 25
+O_MUL (265) 26
+O_DIV (266) 27
+O_EQ (267) 18
+O_UEQ (268) 19
+O_GRE (269) 20
+O_LES (270) 21
+O_GREEQ (271) 22
+O_LESEQ (272) 23
+O_AND (273) 16
+O_OR (274) 17
+SEMICOLON (275) 7 8 9
+COMMA (276) 12 13
+WHILE (277)
+IF (278)
+ELSE (279)
+FOR (280)
+RET (281)
+LP (282) 5
+RP (283) 5
+LC (284) 6
+RC (285) 6
+IDENTIFIER (286) 5 10 12 13 14 15 29
+INTEGER (287) 30
+CHAR (288) 31
+BOOL (289)
+STRING (290) 32
+LOP_EQ (291)
 
 
 Nonterminals, with rules where they appear
 
-$accept (25)
+$accept (37)
     on left: 0
-program (26)
+program (38)
     on left: 1, on right: 0
-statements (27)
+statements (39)
     on left: 2 3 4, on right: 1 3 4 6
-fundef (28)
+fundef (40)
     on left: 5, on right: 4
-block (29)
-    on left: 6, on right: 5 10
-statement (30)
-    on left: 7 8 9 10, on right: 2 3
-assignment (31)
-    on left: 11, on right: 9
-declaration (32)
-    on left: 12, on right: 8
-idlist (33)
-    on left: 13 14 15 16, on right: 12 13 14
-expr (34)
-    on left: 17 18 19 20, on right: 11 14 16
-T (35)
-    on left: 21 22 23, on right: 5 12
+block (41)
+    on left: 6, on right: 5
+statement (42)
+    on left: 7 8 9, on right: 2 3
+assignment (43)
+    on left: 10, on right: 9
+declaration (44)
+    on left: 11, on right: 8
+idlist (45)
+    on left: 12 13 14 15, on right: 11 12 13
+expr (46)
+    on left: 16 17 18 19 20 21 22 23 24 25 26 27 28, on right: 10 13
+    15 16 17 18 19 20 21 22 23 24 25 26 27
+unit (47)
+    on left: 29 30 31 32, on right: 16 17 18 19 20 21 22 23 24 25 26
+    27 28
+T (48)
+    on left: 33 34 35, on right: 5 11
 
 
 State 0
@@ -109,36 +139,35 @@ State 0
     T_INT       shift, and go to state 2
     T_BOOL      shift, and go to state 3
     SEMICOLON   shift, and go to state 4
-    WHILE       shift, and go to state 5
-    IDENTIFIER  shift, and go to state 6
+    IDENTIFIER  shift, and go to state 5
 
-    program      go to state 7
-    statements   go to state 8
-    statement    go to state 9
-    assignment   go to state 10
-    declaration  go to state 11
-    T            go to state 12
+    program      go to state 6
+    statements   go to state 7
+    statement    go to state 8
+    assignment   go to state 9
+    declaration  go to state 10
+    T            go to state 11
 
 
 State 1
 
-   22 T: T_CHAR .
+   34 T: T_CHAR .
 
-    $default  reduce using rule 22 (T)
+    $default  reduce using rule 34 (T)
 
 
 State 2
 
-   21 T: T_INT .
+   33 T: T_INT .
 
-    $default  reduce using rule 21 (T)
+    $default  reduce using rule 33 (T)
 
 
 State 3
 
-   23 T: T_BOOL .
+   35 T: T_BOOL .
 
-    $default  reduce using rule 23 (T)
+    $default  reduce using rule 35 (T)
 
 
 State 4
@@ -150,28 +179,19 @@ State 4
 
 State 5
 
-   10 statement: WHILE . block
+   10 assignment: IDENTIFIER . LOP_ASSIGN expr
 
-    LC  shift, and go to state 13
-
-    block  go to state 14
+    LOP_ASSIGN  shift, and go to state 12
 
 
 State 6
 
-   11 assignment: IDENTIFIER . LOP_ASSIGN expr
+    0 $accept: program . $end
 
-    LOP_ASSIGN  shift, and go to state 15
+    $end  shift, and go to state 13
 
 
 State 7
-
-    0 $accept: program . $end
-
-    $end  shift, and go to state 16
-
-
-State 8
 
     1 program: statements .
     3 statements: statements . statement
@@ -181,49 +201,526 @@ State 8
     T_INT       shift, and go to state 2
     T_BOOL      shift, and go to state 3
     SEMICOLON   shift, and go to state 4
-    WHILE       shift, and go to state 5
-    IDENTIFIER  shift, and go to state 6
+    IDENTIFIER  shift, and go to state 5
 
     $default  reduce using rule 1 (program)
 
-    fundef       go to state 17
-    statement    go to state 18
-    assignment   go to state 10
-    declaration  go to state 11
-    T            go to state 19
+    fundef       go to state 14
+    statement    go to state 15
+    assignment   go to state 9
+    declaration  go to state 10
+    T            go to state 16
 
 
-State 9
+State 8
 
     2 statements: statement .
 
     $default  reduce using rule 2 (statements)
 
 
-State 10
+State 9
 
     9 statement: assignment . SEMICOLON
 
-    SEMICOLON  shift, and go to state 20
+    SEMICOLON  shift, and go to state 17
+
+
+State 10
+
+    8 statement: declaration . SEMICOLON
+
+    SEMICOLON  shift, and go to state 18
 
 
 State 11
 
-    8 statement: declaration . SEMICOLON
+   11 declaration: T . idlist
 
-    SEMICOLON  shift, and go to state 21
+    IDENTIFIER  shift, and go to state 19
+
+    idlist  go to state 20
 
 
 State 12
 
-   12 declaration: T . idlist
+   10 assignment: IDENTIFIER LOP_ASSIGN . expr
 
-    IDENTIFIER  shift, and go to state 22
+    IDENTIFIER  shift, and go to state 21
+    INTEGER     shift, and go to state 22
+    CHAR        shift, and go to state 23
+    STRING      shift, and go to state 24
 
-    idlist  go to state 23
+    expr  go to state 25
+    unit  go to state 26
 
 
 State 13
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 14
+
+    4 statements: statements fundef .
+
+    $default  reduce using rule 4 (statements)
+
+
+State 15
+
+    3 statements: statements statement .
+
+    $default  reduce using rule 3 (statements)
+
+
+State 16
+
+    5 fundef: T . IDENTIFIER LP RP block
+   11 declaration: T . idlist
+
+    IDENTIFIER  shift, and go to state 27
+
+    idlist  go to state 20
+
+
+State 17
+
+    9 statement: assignment SEMICOLON .
+
+    $default  reduce using rule 9 (statement)
+
+
+State 18
+
+    8 statement: declaration SEMICOLON .
+
+    $default  reduce using rule 8 (statement)
+
+
+State 19
+
+   14 idlist: IDENTIFIER .
+   15       | IDENTIFIER . LOP_ASSIGN expr
+
+    LOP_ASSIGN  shift, and go to state 28
+
+    $default  reduce using rule 14 (idlist)
+
+
+State 20
+
+   11 declaration: T idlist .
+   12 idlist: idlist . COMMA IDENTIFIER
+   13       | idlist . COMMA IDENTIFIER LOP_ASSIGN expr
+
+    COMMA  shift, and go to state 29
+
+    $default  reduce using rule 11 (declaration)
+
+
+State 21
+
+   29 unit: IDENTIFIER .
+
+    $default  reduce using rule 29 (unit)
+
+
+State 22
+
+   30 unit: INTEGER .
+
+    $default  reduce using rule 30 (unit)
+
+
+State 23
+
+   31 unit: CHAR .
+
+    $default  reduce using rule 31 (unit)
+
+
+State 24
+
+   32 unit: STRING .
+
+    $default  reduce using rule 32 (unit)
+
+
+State 25
+
+   10 assignment: IDENTIFIER LOP_ASSIGN expr .
+   16 expr: expr . O_AND unit
+   17     | expr . O_OR unit
+   18     | expr . O_EQ unit
+   19     | expr . O_UEQ unit
+   20     | expr . O_GRE unit
+   21     | expr . O_LES unit
+   22     | expr . O_GREEQ unit
+   23     | expr . O_LESEQ unit
+   24     | expr . O_ADD unit
+   25     | expr . O_MINUS unit
+   26     | expr . O_MUL unit
+   27     | expr . O_DIV unit
+
+    O_ADD    shift, and go to state 30
+    O_MINUS  shift, and go to state 31
+    O_MUL    shift, and go to state 32
+    O_DIV    shift, and go to state 33
+    O_EQ     shift, and go to state 34
+    O_UEQ    shift, and go to state 35
+    O_GRE    shift, and go to state 36
+    O_LES    shift, and go to state 37
+    O_GREEQ  shift, and go to state 38
+    O_LESEQ  shift, and go to state 39
+    O_AND    shift, and go to state 40
+    O_OR     shift, and go to state 41
+
+    $default  reduce using rule 10 (assignment)
+
+
+State 26
+
+   28 expr: unit .
+
+    $default  reduce using rule 28 (expr)
+
+
+State 27
+
+    5 fundef: T IDENTIFIER . LP RP block
+   14 idlist: IDENTIFIER .
+   15       | IDENTIFIER . LOP_ASSIGN expr
+
+    LOP_ASSIGN  shift, and go to state 28
+    LP          shift, and go to state 42
+
+    $default  reduce using rule 14 (idlist)
+
+
+State 28
+
+   15 idlist: IDENTIFIER LOP_ASSIGN . expr
+
+    IDENTIFIER  shift, and go to state 21
+    INTEGER     shift, and go to state 22
+    CHAR        shift, and go to state 23
+    STRING      shift, and go to state 24
+
+    expr  go to state 43
+    unit  go to state 26
+
+
+State 29
+
+   12 idlist: idlist COMMA . IDENTIFIER
+   13       | idlist COMMA . IDENTIFIER LOP_ASSIGN expr
+
+    IDENTIFIER  shift, and go to state 44
+
+
+State 30
+
+   24 expr: expr O_ADD . unit
+
+    IDENTIFIER  shift, and go to state 21
+    INTEGER     shift, and go to state 22
+    CHAR        shift, and go to state 23
+    STRING      shift, and go to state 24
+
+    unit  go to state 45
+
+
+State 31
+
+   25 expr: expr O_MINUS . unit
+
+    IDENTIFIER  shift, and go to state 21
+    INTEGER     shift, and go to state 22
+    CHAR        shift, and go to state 23
+    STRING      shift, and go to state 24
+
+    unit  go to state 46
+
+
+State 32
+
+   26 expr: expr O_MUL . unit
+
+    IDENTIFIER  shift, and go to state 21
+    INTEGER     shift, and go to state 22
+    CHAR        shift, and go to state 23
+    STRING      shift, and go to state 24
+
+    unit  go to state 47
+
+
+State 33
+
+   27 expr: expr O_DIV . unit
+
+    IDENTIFIER  shift, and go to state 21
+    INTEGER     shift, and go to state 22
+    CHAR        shift, and go to state 23
+    STRING      shift, and go to state 24
+
+    unit  go to state 48
+
+
+State 34
+
+   18 expr: expr O_EQ . unit
+
+    IDENTIFIER  shift, and go to state 21
+    INTEGER     shift, and go to state 22
+    CHAR        shift, and go to state 23
+    STRING      shift, and go to state 24
+
+    unit  go to state 49
+
+
+State 35
+
+   19 expr: expr O_UEQ . unit
+
+    IDENTIFIER  shift, and go to state 21
+    INTEGER     shift, and go to state 22
+    CHAR        shift, and go to state 23
+    STRING      shift, and go to state 24
+
+    unit  go to state 50
+
+
+State 36
+
+   20 expr: expr O_GRE . unit
+
+    IDENTIFIER  shift, and go to state 21
+    INTEGER     shift, and go to state 22
+    CHAR        shift, and go to state 23
+    STRING      shift, and go to state 24
+
+    unit  go to state 51
+
+
+State 37
+
+   21 expr: expr O_LES . unit
+
+    IDENTIFIER  shift, and go to state 21
+    INTEGER     shift, and go to state 22
+    CHAR        shift, and go to state 23
+    STRING      shift, and go to state 24
+
+    unit  go to state 52
+
+
+State 38
+
+   22 expr: expr O_GREEQ . unit
+
+    IDENTIFIER  shift, and go to state 21
+    INTEGER     shift, and go to state 22
+    CHAR        shift, and go to state 23
+    STRING      shift, and go to state 24
+
+    unit  go to state 53
+
+
+State 39
+
+   23 expr: expr O_LESEQ . unit
+
+    IDENTIFIER  shift, and go to state 21
+    INTEGER     shift, and go to state 22
+    CHAR        shift, and go to state 23
+    STRING      shift, and go to state 24
+
+    unit  go to state 54
+
+
+State 40
+
+   16 expr: expr O_AND . unit
+
+    IDENTIFIER  shift, and go to state 21
+    INTEGER     shift, and go to state 22
+    CHAR        shift, and go to state 23
+    STRING      shift, and go to state 24
+
+    unit  go to state 55
+
+
+State 41
+
+   17 expr: expr O_OR . unit
+
+    IDENTIFIER  shift, and go to state 21
+    INTEGER     shift, and go to state 22
+    CHAR        shift, and go to state 23
+    STRING      shift, and go to state 24
+
+    unit  go to state 56
+
+
+State 42
+
+    5 fundef: T IDENTIFIER LP . RP block
+
+    RP  shift, and go to state 57
+
+
+State 43
+
+   15 idlist: IDENTIFIER LOP_ASSIGN expr .
+   16 expr: expr . O_AND unit
+   17     | expr . O_OR unit
+   18     | expr . O_EQ unit
+   19     | expr . O_UEQ unit
+   20     | expr . O_GRE unit
+   21     | expr . O_LES unit
+   22     | expr . O_GREEQ unit
+   23     | expr . O_LESEQ unit
+   24     | expr . O_ADD unit
+   25     | expr . O_MINUS unit
+   26     | expr . O_MUL unit
+   27     | expr . O_DIV unit
+
+    O_ADD    shift, and go to state 30
+    O_MINUS  shift, and go to state 31
+    O_MUL    shift, and go to state 32
+    O_DIV    shift, and go to state 33
+    O_EQ     shift, and go to state 34
+    O_UEQ    shift, and go to state 35
+    O_GRE    shift, and go to state 36
+    O_LES    shift, and go to state 37
+    O_GREEQ  shift, and go to state 38
+    O_LESEQ  shift, and go to state 39
+    O_AND    shift, and go to state 40
+    O_OR     shift, and go to state 41
+
+    $default  reduce using rule 15 (idlist)
+
+
+State 44
+
+   12 idlist: idlist COMMA IDENTIFIER .
+   13       | idlist COMMA IDENTIFIER . LOP_ASSIGN expr
+
+    LOP_ASSIGN  shift, and go to state 58
+
+    $default  reduce using rule 12 (idlist)
+
+
+State 45
+
+   24 expr: expr O_ADD unit .
+
+    $default  reduce using rule 24 (expr)
+
+
+State 46
+
+   25 expr: expr O_MINUS unit .
+
+    $default  reduce using rule 25 (expr)
+
+
+State 47
+
+   26 expr: expr O_MUL unit .
+
+    $default  reduce using rule 26 (expr)
+
+
+State 48
+
+   27 expr: expr O_DIV unit .
+
+    $default  reduce using rule 27 (expr)
+
+
+State 49
+
+   18 expr: expr O_EQ unit .
+
+    $default  reduce using rule 18 (expr)
+
+
+State 50
+
+   19 expr: expr O_UEQ unit .
+
+    $default  reduce using rule 19 (expr)
+
+
+State 51
+
+   20 expr: expr O_GRE unit .
+
+    $default  reduce using rule 20 (expr)
+
+
+State 52
+
+   21 expr: expr O_LES unit .
+
+    $default  reduce using rule 21 (expr)
+
+
+State 53
+
+   22 expr: expr O_GREEQ unit .
+
+    $default  reduce using rule 22 (expr)
+
+
+State 54
+
+   23 expr: expr O_LESEQ unit .
+
+    $default  reduce using rule 23 (expr)
+
+
+State 55
+
+   16 expr: expr O_AND unit .
+
+    $default  reduce using rule 16 (expr)
+
+
+State 56
+
+   17 expr: expr O_OR unit .
+
+    $default  reduce using rule 17 (expr)
+
+
+State 57
+
+    5 fundef: T IDENTIFIER LP RP . block
+
+    LC  shift, and go to state 59
+
+    block  go to state 60
+
+
+State 58
+
+   13 idlist: idlist COMMA IDENTIFIER LOP_ASSIGN . expr
+
+    IDENTIFIER  shift, and go to state 21
+    INTEGER     shift, and go to state 22
+    CHAR        shift, and go to state 23
+    STRING      shift, and go to state 24
+
+    expr  go to state 61
+    unit  go to state 26
+
+
+State 59
 
     6 block: LC . statements RC
 
@@ -231,102 +728,55 @@ State 13
     T_INT       shift, and go to state 2
     T_BOOL      shift, and go to state 3
     SEMICOLON   shift, and go to state 4
-    WHILE       shift, and go to state 5
-    IDENTIFIER  shift, and go to state 6
+    IDENTIFIER  shift, and go to state 5
 
-    statements   go to state 24
-    statement    go to state 9
-    assignment   go to state 10
-    declaration  go to state 11
-    T            go to state 12
-
-
-State 14
-
-   10 statement: WHILE block .
-
-    $default  reduce using rule 10 (statement)
+    statements   go to state 62
+    statement    go to state 8
+    assignment   go to state 9
+    declaration  go to state 10
+    T            go to state 11
 
 
-State 15
+State 60
 
-   11 assignment: IDENTIFIER LOP_ASSIGN . expr
+    5 fundef: T IDENTIFIER LP RP block .
 
-    IDENTIFIER  shift, and go to state 25
-    INTEGER     shift, and go to state 26
-    CHAR        shift, and go to state 27
-    STRING      shift, and go to state 28
-
-    expr  go to state 29
+    $default  reduce using rule 5 (fundef)
 
 
-State 16
+State 61
 
-    0 $accept: program $end .
+   13 idlist: idlist COMMA IDENTIFIER LOP_ASSIGN expr .
+   16 expr: expr . O_AND unit
+   17     | expr . O_OR unit
+   18     | expr . O_EQ unit
+   19     | expr . O_UEQ unit
+   20     | expr . O_GRE unit
+   21     | expr . O_LES unit
+   22     | expr . O_GREEQ unit
+   23     | expr . O_LESEQ unit
+   24     | expr . O_ADD unit
+   25     | expr . O_MINUS unit
+   26     | expr . O_MUL unit
+   27     | expr . O_DIV unit
 
-    $default  accept
+    O_ADD    shift, and go to state 30
+    O_MINUS  shift, and go to state 31
+    O_MUL    shift, and go to state 32
+    O_DIV    shift, and go to state 33
+    O_EQ     shift, and go to state 34
+    O_UEQ    shift, and go to state 35
+    O_GRE    shift, and go to state 36
+    O_LES    shift, and go to state 37
+    O_GREEQ  shift, and go to state 38
+    O_LESEQ  shift, and go to state 39
+    O_AND    shift, and go to state 40
+    O_OR     shift, and go to state 41
 
-
-State 17
-
-    4 statements: statements fundef .
-
-    $default  reduce using rule 4 (statements)
-
-
-State 18
-
-    3 statements: statements statement .
-
-    $default  reduce using rule 3 (statements)
-
-
-State 19
-
-    5 fundef: T . IDENTIFIER LP RP block
-   12 declaration: T . idlist
-
-    IDENTIFIER  shift, and go to state 30
-
-    idlist  go to state 23
-
-
-State 20
-
-    9 statement: assignment SEMICOLON .
-
-    $default  reduce using rule 9 (statement)
+    $default  reduce using rule 13 (idlist)
 
 
-State 21
-
-    8 statement: declaration SEMICOLON .
-
-    $default  reduce using rule 8 (statement)
-
-
-State 22
-
-   15 idlist: IDENTIFIER .
-   16       | IDENTIFIER . LOP_ASSIGN expr
-
-    LOP_ASSIGN  shift, and go to state 31
-
-    $default  reduce using rule 15 (idlist)
-
-
-State 23
-
-   12 declaration: T idlist .
-   13 idlist: idlist . COMMA IDENTIFIER
-   14       | idlist . COMMA IDENTIFIER LOP_ASSIGN expr
-
-    COMMA  shift, and go to state 32
-
-    $default  reduce using rule 12 (declaration)
-
-
-State 24
+State 62
 
     3 statements: statements . statement
     4           | statements . fundef
@@ -336,145 +786,18 @@ State 24
     T_INT       shift, and go to state 2
     T_BOOL      shift, and go to state 3
     SEMICOLON   shift, and go to state 4
-    WHILE       shift, and go to state 5
-    RC          shift, and go to state 33
-    IDENTIFIER  shift, and go to state 6
+    RC          shift, and go to state 63
+    IDENTIFIER  shift, and go to state 5
 
-    fundef       go to state 17
-    statement    go to state 18
-    assignment   go to state 10
-    declaration  go to state 11
-    T            go to state 19
-
-
-State 25
-
-   17 expr: IDENTIFIER .
-
-    $default  reduce using rule 17 (expr)
+    fundef       go to state 14
+    statement    go to state 15
+    assignment   go to state 9
+    declaration  go to state 10
+    T            go to state 16
 
 
-State 26
-
-   18 expr: INTEGER .
-
-    $default  reduce using rule 18 (expr)
-
-
-State 27
-
-   19 expr: CHAR .
-
-    $default  reduce using rule 19 (expr)
-
-
-State 28
-
-   20 expr: STRING .
-
-    $default  reduce using rule 20 (expr)
-
-
-State 29
-
-   11 assignment: IDENTIFIER LOP_ASSIGN expr .
-
-    $default  reduce using rule 11 (assignment)
-
-
-State 30
-
-    5 fundef: T IDENTIFIER . LP RP block
-   15 idlist: IDENTIFIER .
-   16       | IDENTIFIER . LOP_ASSIGN expr
-
-    LOP_ASSIGN  shift, and go to state 31
-    LP          shift, and go to state 34
-
-    $default  reduce using rule 15 (idlist)
-
-
-State 31
-
-   16 idlist: IDENTIFIER LOP_ASSIGN . expr
-
-    IDENTIFIER  shift, and go to state 25
-    INTEGER     shift, and go to state 26
-    CHAR        shift, and go to state 27
-    STRING      shift, and go to state 28
-
-    expr  go to state 35
-
-
-State 32
-
-   13 idlist: idlist COMMA . IDENTIFIER
-   14       | idlist COMMA . IDENTIFIER LOP_ASSIGN expr
-
-    IDENTIFIER  shift, and go to state 36
-
-
-State 33
+State 63
 
     6 block: LC statements RC .
 
     $default  reduce using rule 6 (block)
-
-
-State 34
-
-    5 fundef: T IDENTIFIER LP . RP block
-
-    RP  shift, and go to state 37
-
-
-State 35
-
-   16 idlist: IDENTIFIER LOP_ASSIGN expr .
-
-    $default  reduce using rule 16 (idlist)
-
-
-State 36
-
-   13 idlist: idlist COMMA IDENTIFIER .
-   14       | idlist COMMA IDENTIFIER . LOP_ASSIGN expr
-
-    LOP_ASSIGN  shift, and go to state 38
-
-    $default  reduce using rule 13 (idlist)
-
-
-State 37
-
-    5 fundef: T IDENTIFIER LP RP . block
-
-    LC  shift, and go to state 13
-
-    block  go to state 39
-
-
-State 38
-
-   14 idlist: idlist COMMA IDENTIFIER LOP_ASSIGN . expr
-
-    IDENTIFIER  shift, and go to state 25
-    INTEGER     shift, and go to state 26
-    CHAR        shift, and go to state 27
-    STRING      shift, and go to state 28
-
-    expr  go to state 40
-
-
-State 39
-
-    5 fundef: T IDENTIFIER LP RP block .
-
-    $default  reduce using rule 5 (fundef)
-
-
-State 40
-
-   14 idlist: idlist COMMA IDENTIFIER LOP_ASSIGN expr .
-
-    $default  reduce using rule 14 (idlist)

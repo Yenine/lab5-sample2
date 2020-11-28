@@ -17,10 +17,16 @@ STRING \".+\"
 
 IDENTIFIER [[:alpha:]_][[:alpha:][:digit:]_]*
 
+ADDOP [+]|[-]
+MULOP [*]|[/]
+RELOP <|>|<=|>=|==|!=
+LOGOP \&\&|\|\|
+
 %%
 
 {BLOCKCOMMENT}  /* do nothing */
 {LINECOMMENT}  /* do nothing */
+
 
 
 "int" return T_INT;
@@ -28,6 +34,19 @@ IDENTIFIER [[:alpha:]_][[:alpha:][:digit:]_]*
 "char" return T_CHAR;
 
 "=" return LOP_ASSIGN;
+
+"+" return O_ADD;
+"-" return O_MINUS;
+"*" return O_MUL;
+"/" return O_DIV;
+"<" return O_LES;
+">" return O_GRE;
+"<=" return O_LESEQ;
+">=" return O_GREEQ;
+"==" return O_EQ;
+"!=" return O_UEQ;
+"&&" return O_AND;
+"||" return O_OR;
 
 ";" return  SEMICOLON;
 "," return COMMA;

@@ -15,6 +15,8 @@
 %token T_CHAR T_INT T_STRING T_BOOL 
 
 %token LOP_ASSIGN 
+%token O_ADD O_MINUS O_MUL O_DIV O_EQ O_UEQ O_GRE O_LES O_GREEQ O_LESEQ O_AND O_OR
+
 
 %token SEMICOLON COMMA
 %token WHILE IF ELSE FOR RET
@@ -31,29 +33,36 @@ program
 statements
 :  statement {$$=$1;}
 |  statements statement {$$=$1; $$->addSibling($2);}
-|  statements fundef {$$=$1; $$->addSibling($2);}
+|  statements fundef {
+$$=$1;
+$$->addSibling($2);
+}
+//|  statements IF LP expr RP
 ;
 fundef
 : T IDENTIFIER LP RP block{
+		printf("begin_func\n");
 		TreeNode* node = new TreeNode($1->lineno, NODE_FUNC);
-                node->addSibling($1);
-                node->addSibling($2);
-                node->addSibling($5);
+                node->addChild($1);
+                node->addChild($2);
+                node->addChild($5);
                 $$=node;
 }
 ;
 block
-: LC statements RC{
-		$$=$2;
-		SymMap=new map<string,int>;
-		STmap.insert(make_pair($2->lineno,SymMap));
+: LC statements RC {
+		TreeNode* node = new TreeNode($1->lineno, NODE_BLOCK);
+		node->addChild($2);
+		$$=node;
 		}
 ;
+
+
+
 statement
 : SEMICOLON  {$$ = new TreeNode(lineno, NODE_STMT); $$->stype = STMT_SKIP;}
 | declaration SEMICOLON {$$ = $1;}
 | assignment SEMICOLON {$$ = $1;}
-| WHILE block{$$ = $1;$$->addSibling($2);}
 ;
 //| IF LP expr RP statement{$$ = new TreeNode(lineno, NODE_STMT); $$->stype = STMT_SKIP;}
 //| IF LP expr RP LC statements RC
@@ -97,57 +106,112 @@ idlist
 : idlist COMMA IDENTIFIER{
                            $$=$1;
                            $$->addSibling($3);
-                           if(SymMap->count($3->var_name)==0){
-                            	SymMap->insert(make_pair($3->var_name,id));
-                                 printf("ID %s %d\n",$3->var_name.c_str(),id);
-                                 id++;
-                            }
-                            else{
-                            	printf("ID %s %d\n",$3->var_name.c_str(),(*SymMap)[$3->var_name]);
-                            }
  }
 | idlist COMMA IDENTIFIER LOP_ASSIGN expr{
 			$$=$1;
                         $$->addSibling($3);
-                        if(SymMap->count($3->var_name)==0){
-                                                    	SymMap->insert(make_pair($3->var_name,id));
-                                                         printf("ID %s %d\n",$3->var_name.c_str(),id);
-
-                                                         id++;
-                                                    }
-                                                    else{
-                                                    	printf("ID %s %d\n",$3->var_name.c_str(),(*SymMap)[$3->var_name]);
-                                                    }
                         $$->addSibling($5);
 }
 | IDENTIFIER{
                 $$ = $1;
-                if(SymMap->count($1->var_name)==0){
-                                            	SymMap->insert(make_pair($1->var_name,id));
-                                                 printf("ID %s %d\n",$1->var_name.c_str(),id);
-                                                 printf("count:%d",SymMap->count($1->var_name));
-                                                 id++;
-                                            }
-                                            else{
-                                            	printf("ID %s %d\n",$1->var_name.c_str(),(*SymMap)[$1->var_name]);
-                                            }
 }
 | IDENTIFIER LOP_ASSIGN expr{
 		$$ = $1;
-		printf("hello");
-		if(SymMap->count($3->var_name)==0){
-                                            	SymMap->insert(make_pair($1->var_name,id));
-                                                 printf("ID %s %d\n",$1->var_name.c_str(),id);
-                                                 id++;
-                                            }
-                                            else{
-                                            	printf("ID %s %d\n",$1->var_name.c_str(),(*SymMap)[$1->var_name]);
-                                            }
 		$$->addSibling($3);
 }
 ;
 expr
-: IDENTIFIER {
+: expr O_AND unit{
+ 	TreeNode* node = new TreeNode($1->lineno, NODE_EXPR);
+ 	node->optype=OP_AND;
+ 	node->addChild($1);
+        node->addChild($3);
+        $$=node;
+ }
+| expr O_OR unit{
+	TreeNode* node = new TreeNode($1->lineno, NODE_EXPR);
+	node->optype=OP_OR;
+	node->addChild($1);
+        node->addChild($3);
+        $$=node;
+}
+| expr O_EQ unit{
+	TreeNode* node = new TreeNode($1->lineno, NODE_EXPR);
+	node->optype=OP_EQ;
+	node->addChild($1);
+        node->addChild($3);
+        $$=node;
+}
+| expr O_UEQ unit{
+	TreeNode* node = new TreeNode($1->lineno, NODE_EXPR);
+	node->optype=OP_UEQ;
+	node->addChild($1);
+        node->addChild($3);
+        $$=node;
+}
+| expr O_GRE unit{
+	TreeNode* node = new TreeNode($1->lineno, NODE_EXPR);
+	node->optype=OP_GRE;
+	node->addChild($1);
+        node->addChild($3);
+        $$=node;
+}
+| expr O_LES unit{
+	TreeNode* node = new TreeNode($1->lineno, NODE_EXPR);
+	node->optype=OP_LES;
+	node->addChild($1);
+        node->addChild($3);
+        $$=node;
+}
+| expr O_GREEQ unit{
+	TreeNode* node = new TreeNode($1->lineno, NODE_EXPR);
+	node->optype=OP_GREEQ;
+	node->addChild($1);
+        node->addChild($3);
+        $$=node;
+}
+| expr O_LESEQ unit{
+	TreeNode* node = new TreeNode($1->lineno, NODE_EXPR);
+	node->optype=OP_LESEQ;
+	node->addChild($1);
+        node->addChild($3);
+        $$=node;
+}
+| expr O_ADD unit{
+	TreeNode* node = new TreeNode($1->lineno, NODE_EXPR);
+	node->optype=OP_ADD;
+	node->addChild($1);
+        node->addChild($3);
+        $$=node;
+}
+| expr O_MINUS unit{
+	TreeNode* node = new TreeNode($1->lineno, NODE_EXPR);
+	node->optype=OP_MINUS;
+	node->addChild($1);
+        node->addChild($3);
+        $$=node;
+}
+| expr O_MUL unit{
+	TreeNode* node = new TreeNode($1->lineno, NODE_EXPR);
+	node->optype=OP_MUL;
+	node->addChild($1);
+        node->addChild($3);
+        $$=node;
+}
+| expr O_DIV unit{
+	TreeNode* node = new TreeNode($1->lineno, NODE_EXPR);
+	node->optype=OP_DIV;
+	node->addChild($1);
+        node->addChild($3);
+        $$=node;
+}
+| unit{
+	$$=$1;
+}
+;
+unit
+:
+IDENTIFIER {
     $$ = $1;
 }
 | INTEGER {
