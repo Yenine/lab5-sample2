@@ -37,11 +37,45 @@ statements
 $$=$1;
 $$->addSibling($2);
 }
+|  statements if {
+$$=$1;
+$$->addSibling($2);
+}
+| statements if else{
+$$=$1;
+$$->addSibling($2);
+$$->addSibling($3);
+}
 //|  statements IF LP expr RP
+;
+if
+: IF LP expr RP block{
+		TreeNode* node = new TreeNode($1->lineno, NODE_IF);
+                node->addChild($3);
+                node->addChild($5);
+                $$=node;
+}
+| IF LP expr RP statement{
+                         		TreeNode* node = new TreeNode($1->lineno, NODE_IF);
+                                         node->addChild($3);
+                                         node->addChild($5);
+                                         $$=node;
+                         }
+;
+else
+: ELSE block{
+	TreeNode* node = new TreeNode($1->lineno, NODE_ELSE);
+        node->addChild($2);
+        $$=node;
+}
+| ELSE statement{
+	TreeNode* node = new TreeNode($1->lineno, NODE_ELSE);
+        node->addChild($2);
+        $$=node;
+}
 ;
 fundef
 : T IDENTIFIER LP RP block{
-		printf("begin_func\n");
 		TreeNode* node = new TreeNode($1->lineno, NODE_FUNC);
                 node->addChild($1);
                 node->addChild($2);

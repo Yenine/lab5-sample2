@@ -137,7 +137,6 @@ void TreeNode::genSymbol() {
         if(SymMap->count(chi->var_name)!=0){
           chi->var_id=-2;
         } else {
-          printf("declstaml\n");
           chi->var_id = id;
           SymMap->insert(make_pair(chi->var_name, id));
           id++;
@@ -239,6 +238,9 @@ void TreeNode::printSpecialInfo() {
           default:
             break;
           }
+          break;
+        case NODE_IF:
+          printf("if");
           break;
 //        case NODE_PROG:
 //          printf("prog");

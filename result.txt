@@ -1,45 +1,33 @@
-begin_func
-declstaml
-declstaml
-declstaml
-declstaml
-declstaml
-lno0  @0   prog children:[ @1 @5 @8 @12 @36 ]
+lno0  @0   prog children:[ @1 @5 @31 ]
 lno1  @1   stmt children:[ @2 @3 @4 ]stmt:decl
 lno1  @2   type type:int
 lno1  @3   var varname:a varid:0
 lno1  @4   const type:int
-lno2  @5   stmt children:[ @6 @7 ]stmt:assign
-lno2  @6   var varname:a varid:0
-lno2  @7   const type:int
-lno3  @8   stmt children:[ @9 @10 @11 ]stmt:decl
-lno3  @9   type type:int
-lno3  @10   var varname:f varid:1
-lno3  @11   const type:int
-lno4  @12   func children:[ @13 @14 @15 ]
-lno4  @13   type type:int
-lno4  @14   var varname:main varid:0
-lno4  @15   block children:[ @16 @19 @25 @29 @33 ]
-lno5  @16   stmt children:[ @17 @18 ]stmt:assign
-lno5  @17   var varname:f varid:1
-lno5  @18   const type:int
-lno6  @19   stmt children:[ @20 @21 @22 ]stmt:decl
-lno6  @20   type type:int
-lno6  @21   var varname:a varid:2
-lno6  @22   expr children:[ @23 @24 ]op:ADD
-lno6  @23   const type:int
-lno6  @24   const type:int
-lno7  @25   stmt children:[ @26 @27 @28 ]stmt:decl
-lno7  @26   type type:int
-lno7  @27   var varname:b varid:3
-lno7  @28   const type:int
-lno8  @29   stmt children:[ @30 @31 @32 ]stmt:decl
-lno8  @30   type type:int
-lno8  @31   var varname:c varid:4
-lno8  @32   const type:int
-lno9  @33   stmt children:[ @34 @35 ]stmt:assign
-lno9  @34   var varname:a varid:2
-lno9  @35   const type:int
-lno11  @36   stmt children:[ @37 @38 ]stmt:assign
-lno11  @37   var varname:a varid:0
-lno11  @38   const type:int
+lno2  @5   func children:[ @6 @7 @8 ]
+lno2  @6   type type:int
+lno2  @7   var varname:main varid:0
+lno2  @8   block children:[ @9 @15 @19 @23 ]
+lno3  @9   stmt children:[ @10 @11 @12 ]stmt:decl
+lno3  @10   type type:int
+lno3  @11   var varname:a varid:1
+lno3  @12   expr children:[ @13 @14 ]op:ADD
+lno3  @13   const type:int
+lno3  @14   const type:int
+lno4  @15   stmt children:[ @16 @17 @18 ]stmt:decl
+lno4  @16   type type:int
+lno4  @17   var varname:b varid:2
+lno4  @18   const type:int
+lno5  @19   stmt children:[ @20 @21 @22 ]stmt:decl
+lno5  @20   type type:int
+lno5  @21   var varname:c varid:3
+lno5  @22   const type:int
+lno5  @23    children:[ @24 @27 ]iflno6  @24   expr children:[ @25 @26 ]op:EQ
+lno6  @25   var varname:a varid:1
+lno6  @26   const type:int
+lno6  @27   block children:[ @28 ]
+lno7  @28   stmt children:[ @29 @30 ]stmt:assign
+lno7  @29   var varname:a varid:1
+lno7  @30   const type:int
+lno10  @31   stmt children:[ @32 @33 ]stmt:assign
+lno10  @32   var varname:a varid:0
+lno10  @33   const type:int

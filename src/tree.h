@@ -13,8 +13,12 @@ enum NodeType
 
     NODE_STMT,
     NODE_PROG,
-    NODE_FUNC,
     NODE_BLOCK,
+    NODE_FUNC,
+    NODE_IF,
+    NODE_ELSE,
+    NODE_WHILE,
+    NODE_FOR,
 };
 
 enum OperatorType
