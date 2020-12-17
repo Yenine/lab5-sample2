@@ -96,10 +96,10 @@ void TreeNode::printAST() {
 }
 
 void TreeNode::genSymbol() {
-  static auto *GlobalSymbolTable=new map<string,int>;
+  static auto *GlobalSymbolTable=new map<string,symbol_entry>;
   static auto *FuncSymbolTable=new map<string,int>;
-  static map<string,int> *SymMap=GlobalSymbolTable;
-  static list<map<string,int>*> STlist;
+  static map<string,symbol_entry> *SymMap=GlobalSymbolTable;
+  static list<map<string,symbol_entry>*> STlist;
   static int id=0;
   static int funcid=0;
   TreeNode *cur=this;
@@ -107,7 +107,8 @@ void TreeNode::genSymbol() {
     STlist.push_back(SymMap);
     for(auto temp=STlist.rbegin();temp!=STlist.rend();temp++){
       if ((*temp)->count(cur->var_name) != 0){
-        cur->var_id=(**temp)[cur->var_name];
+        cur->var_id=(**temp)[cur->var_name].token;
+        cur->type=(**temp)[cur->var_name].type;
         STlist.pop_back();
         return;
       }
@@ -132,13 +133,17 @@ void TreeNode::genSymbol() {
     }
   }
   if(cur->stype==STMT_DECL) {
+    type=cur->child->type;
     for (TreeNode *chi = cur->child; chi != nullptr; chi = chi->sibling) {
       if (chi->nodeType == NODE_VAR) {
         if(SymMap->count(chi->var_name)!=0){
           chi->var_id=-2;
         } else {
-          chi->var_id = id;
-          SymMap->insert(make_pair(chi->var_name, id));
+          symbol_entry symbol;
+          symbol.name=chi->var_name;
+          symbol.type=chi->type=type;
+          symbol.token=chi->var_id = id;
+          SymMap->insert(make_pair(chi->var_name, symbol));
           id++;
         }
       }
@@ -147,7 +152,7 @@ void TreeNode::genSymbol() {
   }
   if(cur->nodeType==NODE_BLOCK) {
     STlist.push_back(SymMap);
-    SymMap = new map<string, int>;
+    SymMap = new map<string, symbol_entry>;
     cur=cur->child;
     while(cur!= nullptr){
       cur->genSymbol();
@@ -190,6 +195,36 @@ void TreeNode::printSpecialInfo() {
             case STMT_ASSI:
               printf("stmt:assign\n");
               break;
+          case STMT_ADD_ASSI:
+            printf("stmt:add assign\n");
+            break;
+          case STMT_MINUS_ASSI:
+            printf("stmt:minus assign\n");
+            break;
+          case STMT_MUL_ASSI:
+            printf("stmt:mul assign\n");
+            break;
+          case STMT_DIV_ASSI:
+            printf("stmt:div assign\n");
+            break;
+          case STMT_IF:
+            printf("stmt:if\n");
+            break;
+          case STMT_FOR:
+            printf("stmt:for\n");
+            break;
+          case STMT_WHILE:
+            printf("stmt:while\n");
+            break;
+          case STMT_CALL:
+            printf("stmt:call\n");
+            break;
+          case STMT_RET:
+            printf("stmt:return\n");
+            break;
+          case STMT_BRK:
+            printf("stmt:break\n");
+            break;
             default:
               break;
           }
@@ -235,13 +270,35 @@ void TreeNode::printSpecialInfo() {
           case OP_OR:
             printf("op:OR\n");
             break;
+          case OP_NOT:
+            printf("op:NOT\n");
+            break;
+          case OP_AFT_ADD:
+            printf("op:AFT_ADD\n");
+            break;
+          case OP_AFT_MINUS:
+            printf("op:AFT_MINUS\n");
+            break;
+          case OP_PRE_ADD:
+            printf("op:PRE_ADD\n");
+            break;
+          case OP_PRE_MINUS:
+            printf("op:PRE_MINUS\n");
+            break;
+          case OP_MOD:
+            printf("op:MOD\n");
+            break;
+          case OP_ADDRESS:
+            printf("op:address\n");
+            break;
+          case OP_UMINUS:
+            printf("op:uminus\n");
+            break;
           default:
             break;
           }
           break;
-        case NODE_IF:
-          printf("if");
-          break;
+
 //        case NODE_PROG:
 //          printf("prog");
 //            break;
@@ -250,6 +307,70 @@ void TreeNode::printSpecialInfo() {
           printf("\n");
           break;
     }
+}
+Type* TreeNode::typeCheck() {
+//  this->printNodeInfo();
+  TreeNode *cur=this;
+  cur=cur->child;
+  while (cur!= nullptr){
+      cur->typeCheck();
+      cur=cur->sibling;
+  }
+  if(this->nodeType==NODE_EXPR){
+    if(this->optype<=8){
+      this->type=TYPE_BOOL;
+      if(this->optype==OP_NOT ||this->optype==OP_AND ||this->optype==OP_OR) {
+        cur = this->child;
+        while (cur != nullptr) {
+          if (cur->type->type != VALUE_BOOL) {
+            cerr << "Bad boolean type at line: " << cur->lineno << endl;
+            exit(1);
+          }
+          cur = cur->sibling;
+        }
+      }
+    }
+//    if(this->optype>=9&&this->optype<=18){
+//      cur=this->child;
+//      while (cur!=nullptr){
+//        if(cur->type->type!=VALUE_INT){
+//          cerr << "Bad int or float type at line: " << cur->lineno << endl;
+//          exit(1);
+//        }
+//        cur=cur->sibling;
+//      }
+//    }
+  }
+  if(this->nodeType==NODE_STMT){
+//    printf("hellkasd");
+    if(this->stype==STMT_WHILE || this->stype==STMT_IF) {
+      if(this->child->type->type!=VALUE_BOOL){
+        cerr<<"Bad boolean type at line: " << this->lineno << endl;
+        exit(1);
+      }
+    }else if(this->stype==STMT_FOR) {
+      if (this->child->child->sibling->type->type != VALUE_BOOL) {
+        cerr << "Bad boolean type at line: " << this->lineno << endl;
+        exit(1);
+      }
+    } else if(this->stype==STMT_DECL){
+      type=this->child->type;
+      cur=this->child->sibling;
+      while (cur!= nullptr){
+        if(cur->type->type!=type->type){
+          cerr << "Bad decl type at line: " << cur->lineno << endl;
+          exit(1);
+        }
+        cur=cur->sibling;
+      }
+    } else if(this->stype==STMT_ASSI ||this->stype==STMT_ADD_ASSI||this->stype==STMT_MINUS_ASSI){
+      if(this->child->type->type!=this->child->sibling->type->type){
+        cerr << "Bad assign type at line: " << this->lineno << endl;
+        exit(1);
+      }
+    }
+  }
+  return this->type;
 }
 
 string TreeNode::sType2String(StmtType type) {

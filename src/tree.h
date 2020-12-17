@@ -3,7 +3,7 @@
 
 #include "pch.h"
 #include "type.h"
-
+#include "symbol.h"
 enum NodeType
 {
     NODE_CONST, 
@@ -15,33 +15,53 @@ enum NodeType
     NODE_PROG,
     NODE_BLOCK,
     NODE_FUNC,
-    NODE_IF,
-    NODE_ELSE,
-    NODE_WHILE,
-    NODE_FOR,
+//    NODE_IF,
+//    NODE_ELSE,
+//    NODE_WHILE,
+//    NODE_FOR,
 };
 
 enum OperatorType
 {
   OP_EQ,  // ==
-  OP_ADD,  // +
-  OP_MINUS,  // -
-  OP_MUL,  // *
-  OP_DIV,  // /
   OP_GRE,  // >
   OP_LES,  // <
   OP_GREEQ,  // >=
   OP_LESEQ,  // <=
   OP_UEQ,  // !=
+  OP_NOT,
   OP_AND,  // &&
   OP_OR,  // ||
-
+  OP_MOD,  // %
+  OP_ADD,  // +
+  OP_MINUS,  // -
+  OP_MUL,  // *
+  OP_DIV,  // /
+  OP_AFT_MINUS,
+  OP_AFT_ADD,
+  OP_PRE_MINUS,
+  OP_PRE_ADD,
+  OP_UMINUS,
+  OP_ADDRESS,
 };
 
 enum StmtType {
+
+    STMT_IF,
+    STMT_ELSE,
+    STMT_FOR,
+    STMT_WHILE,
+    STMT_CALL,
+    STMT_RET,
+    STMT_BRK,
+
     STMT_SKIP,
     STMT_DECL,
     STMT_ASSI,
+    STMT_ADD_ASSI,
+    STMT_MINUS_ASSI,
+    STMT_MUL_ASSI,
+    STMT_DIV_ASSI,
 }
 ;
 
@@ -64,8 +84,9 @@ public:
     void printSpecialInfo();
 
     void genSymbol();
-
     void genNodeId();
+
+    Type* typeCheck();
 
 public:
     OperatorType optype;  // 如果是表达式

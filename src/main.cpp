@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
     if(root != NULL) {
         root->genNodeId();
         root->genSymbol();
+        root->typeCheck();
         root->printAST();
     }
     return 0;

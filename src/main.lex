@@ -34,11 +34,17 @@ LOGOP \&\&|\|\|
 "char" return T_CHAR;
 
 "=" return LOP_ASSIGN;
+"+=" return LOP_ADD_ASSIGN;
+"-=" return LOP_MINUS_ASSIGN;
+"*=" return LOP_MUL_ASSIGN;
+"/=" return LOP_DIV_ASSIGN;
 
+"!" return O_NOT;
 "+" return O_ADD;
 "-" return O_MINUS;
 "*" return O_MUL;
 "/" return O_DIV;
+"%" return O_MOD;
 "<" return O_LES;
 ">" return O_GRE;
 "<=" return O_LESEQ;
@@ -47,6 +53,11 @@ LOGOP \&\&|\|\|
 "!=" return O_UEQ;
 "&&" return O_AND;
 "||" return O_OR;
+"&" return O_ADDRESS;
+
+"++" return O_DOUBLE_ADD;
+"--" return O_DOUBLE_MINUS;
+
 
 ";" return  SEMICOLON;
 "," return COMMA;
@@ -60,7 +71,7 @@ LOGOP \&\&|\|\|
 "else" return ELSE;
 "for" return FOR;
 "return" return RET;
-
+"break" return BRK;
 
 {INTEGER} {
     TreeNode* node = new TreeNode(lineno, NODE_CONST);
@@ -78,13 +89,22 @@ LOGOP \&\&|\|\|
     return CHAR;
 }
 
+{STRING} {
+    TreeNode* node = new TreeNode(lineno, NODE_CONST);
+    node->type = TYPE_STRING;
+    node->str_val = string(yytext);
+    yylval = node;
+    return STRING;
+}
+
+
 {IDENTIFIER} {
     TreeNode* node = new TreeNode(lineno, NODE_VAR);
+
     node->var_name = string(yytext);
     yylval = node;
     return IDENTIFIER;
 }
-
 {WHILTESPACE} /* do nothing */
 
 {EOL} lineno++;
