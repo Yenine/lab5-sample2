@@ -1,23 +1,11 @@
+int a,b,c;
 int main(){
-  int a,s;
-  char t='a';
-  a = 10;
-  s = 0;
-  char ch;
-  scanf("\%d", &ch);
-  while(a>0 && a<=10 || a%100==10 && !(a==10) ) {
-    a -= 1;
-    int a;
-    a = 10;
-    s += a;
-    if(-s < -10) {
-      printf("result is: %d\n", s);
-      int b;
-      b = 10;
-      for(int i=0; i<b; i++) {
-        printf("Have fun: %d\n", i);
-      }
-    }
+  if(b==0){
+    a=b*a+1;
   }
+//  int c=a+b;
+//  c=a+b;
 }
-// No more compilation error.
+//int main() {
+//  a=a+1;
+//}

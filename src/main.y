@@ -250,6 +250,7 @@ assignment
 	TreeNode* node = new TreeNode($1->lineno, NODE_STMT);
     	node->stype = STMT_ASSI;
     	node->addChild($1);
+//    	TreeNode* cur = new TreeNode($1->lineno, NODE_EXPR);
     	node->addChild($3);
     	$$ = node;
 }
@@ -310,9 +311,9 @@ idlist
 }
 ;
 
-expr
-: assignment
-| expr O_AND expr{
+expr:
+//: assignment
+ expr O_AND expr{
  	TreeNode* node = new TreeNode($1->lineno, NODE_EXPR);
  	node->optype=OP_AND;
  	node->addChild($1);
@@ -440,6 +441,9 @@ expr
         $$=node;
 }
 | LP expr RP{
+	printf("hello");
+//	TreeNode* node = new TreeNode(10, NODE_EXPR);
+//	node->addChild($2);
 	$$=$2;
 }
 | unit{

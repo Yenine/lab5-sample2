@@ -7,16 +7,11 @@ Terminals unused in grammar
 
 State 23 conflicts: 1 shift/reduce
 State 26 conflicts: 1 shift/reduce
-State 28 conflicts: 1 shift/reduce
 State 35 conflicts: 2 shift/reduce
 State 36 conflicts: 2 shift/reduce
 State 37 conflicts: 2 shift/reduce
 State 38 conflicts: 2 shift/reduce
-State 86 conflicts: 15 shift/reduce
-State 87 conflicts: 15 shift/reduce
-State 88 conflicts: 15 shift/reduce
-State 89 conflicts: 15 shift/reduce
-State 90 conflicts: 15 shift/reduce
+State 96 conflicts: 2 shift/reduce
 State 97 conflicts: 2 shift/reduce
 State 98 conflicts: 2 shift/reduce
 State 99 conflicts: 2 shift/reduce
@@ -29,7 +24,6 @@ State 105 conflicts: 2 shift/reduce
 State 106 conflicts: 2 shift/reduce
 State 107 conflicts: 2 shift/reduce
 State 108 conflicts: 2 shift/reduce
-State 109 conflicts: 2 shift/reduce
 
 
 Grammar
@@ -95,71 +89,70 @@ Grammar
    42       | IDENTIFIER
    43       | IDENTIFIER LOP_ASSIGN expr
 
-   44 expr: assignment
-   45     | expr O_AND expr
-   46     | expr O_OR expr
-   47     | expr O_EQ expr
-   48     | expr O_UEQ expr
-   49     | expr O_GRE expr
-   50     | expr O_LES expr
-   51     | expr O_GREEQ expr
-   52     | expr O_LESEQ expr
-   53     | expr O_ADD expr
-   54     | expr O_MINUS expr
-   55     | expr O_MUL expr
-   56     | expr O_DIV expr
-   57     | expr O_MOD expr
-   58     | O_MINUS expr
-   59     | O_NOT expr
-   60     | expr O_DOUBLE_ADD
-   61     | expr O_DOUBLE_MINUS
-   62     | O_DOUBLE_ADD expr
-   63     | O_DOUBLE_MINUS expr
-   64     | LP expr RP
-   65     | unit
+   44 expr: expr O_AND expr
+   45     | expr O_OR expr
+   46     | expr O_EQ expr
+   47     | expr O_UEQ expr
+   48     | expr O_GRE expr
+   49     | expr O_LES expr
+   50     | expr O_GREEQ expr
+   51     | expr O_LESEQ expr
+   52     | expr O_ADD expr
+   53     | expr O_MINUS expr
+   54     | expr O_MUL expr
+   55     | expr O_DIV expr
+   56     | expr O_MOD expr
+   57     | O_MINUS expr
+   58     | O_NOT expr
+   59     | expr O_DOUBLE_ADD
+   60     | expr O_DOUBLE_MINUS
+   61     | O_DOUBLE_ADD expr
+   62     | O_DOUBLE_MINUS expr
+   63     | LP expr RP
+   64     | unit
 
-   66 unit: IDENTIFIER
-   67     | INTEGER
-   68     | CHAR
-   69     | STRING
-   70     | funcall
-   71     | O_ADDRESS IDENTIFIER
+   65 unit: IDENTIFIER
+   66     | INTEGER
+   67     | CHAR
+   68     | STRING
+   69     | funcall
+   70     | O_ADDRESS IDENTIFIER
 
-   72 T: T_INT
-   73  | T_CHAR
-   74  | T_BOOL
+   71 T: T_INT
+   72  | T_CHAR
+   73  | T_BOOL
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
 error (256)
-T_CHAR (258) 73
-T_INT (259) 72
+T_CHAR (258) 72
+T_INT (259) 71
 T_STRING (260)
-T_BOOL (261) 74
+T_BOOL (261) 73
 LOP_ASSIGN (262) 17 34 41 43
 LOP_ADD_ASSIGN (263) 35
 LOP_MINUS_ASSIGN (264) 36
 LOP_MUL_ASSIGN (265) 37
 LOP_DIV_ASSIGN (266) 38
-O_ADD (267) 53
-O_MINUS (268) 54 58
-O_MUL (269) 55
-O_DIV (270) 56
-O_EQ (271) 47
-O_UEQ (272) 48
-O_GRE (273) 49
-O_LES (274) 50
-O_GREEQ (275) 51
-O_LESEQ (276) 52
-O_AND (277) 45
-O_OR (278) 46
-O_NOT (279) 59
-O_MOD (280) 57
-O_DOUBLE_ADD (281) 60 62
-O_DOUBLE_MINUS (282) 61 63
-O_ADDRESS (283) 71
+O_ADD (267) 52
+O_MINUS (268) 53 57
+O_MUL (269) 54
+O_DIV (270) 55
+O_EQ (271) 46
+O_UEQ (272) 47
+O_GRE (273) 48
+O_LES (274) 49
+O_GREEQ (275) 50
+O_LESEQ (276) 51
+O_AND (277) 44
+O_OR (278) 45
+O_NOT (279) 58
+O_MOD (280) 56
+O_DOUBLE_ADD (281) 59 61
+O_DOUBLE_MINUS (282) 60 62
+O_ADDRESS (283) 70
 SEMICOLON (284) 4 5 23 24 25 26 27 32 33
 COMMA (285) 14 20 40 41
 WHILE (286) 11
@@ -168,15 +161,15 @@ ELSE (288) 9 10
 FOR (289) 4 5
 RET (290) 32
 BRK (291) 33
-LP (292) 4 5 7 8 11 12 13 18 19 64
-RP (293) 4 5 7 8 11 12 13 18 19 64
+LP (292) 4 5 7 8 11 12 13 18 19 63
+RP (293) 4 5 7 8 11 12 13 18 19 63
 LC (294) 22
 RC (295) 22
-IDENTIFIER (296) 12 13 16 17 18 19 34 35 36 37 38 40 41 42 43 66 71
-INTEGER (297) 67
-CHAR (298) 68
+IDENTIFIER (296) 12 13 16 17 18 19 34 35 36 37 38 40 41 42 43 65 70
+INTEGER (297) 66
+CHAR (298) 67
 BOOL (299)
-STRING (300) 69
+STRING (300) 68
 LOP_EQ (301)
 PRE_ADD (302)
 PRE_MINUS (303)
@@ -208,7 +201,7 @@ funcparams (60)
 declsingle (61)
     on left: 16 17, on right: 14 15
 funcall (62)
-    on left: 18 19, on right: 27 70
+    on left: 18 19, on right: 27 69
 params (63)
     on left: 20 21, on right: 18 20
 block (64)
@@ -216,19 +209,19 @@ block (64)
 statement (65)
     on left: 23 24 25 26 27 28 29 30 31 32 33, on right: 2 3 8 10
 assignment (66)
-    on left: 34 35 36 37 38, on right: 5 25 44
+    on left: 34 35 36 37 38, on right: 5 25
 declaration (67)
     on left: 39, on right: 4 24
 idlist (68)
     on left: 40 41 42 43, on right: 39 40 41
 expr (69)
     on left: 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61
-    62 63 64 65, on right: 4 5 7 8 11 17 21 26 34 35 36 37 38 41 43
-    45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
+    62 63 64, on right: 4 5 7 8 11 17 21 26 34 35 36 37 38 41 43 44
+    45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63
 unit (70)
-    on left: 66 67 68 69 70 71, on right: 20 32 65
+    on left: 65 66 67 68 69 70, on right: 20 32 64
 T (71)
-    on left: 72 73 74, on right: 12 13 16 17 39
+    on left: 71 72 73, on right: 12 13 16 17 39
 
 
 State 0
@@ -272,28 +265,28 @@ State 0
 
 State 1
 
-   73 T: T_CHAR .
-
-    $default  reduce using rule 73 (T)
-
-
-State 2
-
-   72 T: T_INT .
+   72 T: T_CHAR .
 
     $default  reduce using rule 72 (T)
 
 
+State 2
+
+   71 T: T_INT .
+
+    $default  reduce using rule 71 (T)
+
+
 State 3
 
-   74 T: T_BOOL .
+   73 T: T_BOOL .
 
-    $default  reduce using rule 74 (T)
+    $default  reduce using rule 73 (T)
 
 
 State 4
 
-   58 expr: O_MINUS . expr
+   57 expr: O_MINUS . expr
 
     O_MINUS         shift, and go to state 4
     O_NOT           shift, and go to state 5
@@ -301,20 +294,19 @@ State 4
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 35
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 35
+    unit     go to state 31
 
 
 State 5
 
-   59 expr: O_NOT . expr
+   58 expr: O_NOT . expr
 
     O_MINUS         shift, and go to state 4
     O_NOT           shift, and go to state 5
@@ -322,20 +314,19 @@ State 5
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 36
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 36
+    unit     go to state 31
 
 
 State 6
 
-   62 expr: O_DOUBLE_ADD . expr
+   61 expr: O_DOUBLE_ADD . expr
 
     O_MINUS         shift, and go to state 4
     O_NOT           shift, and go to state 5
@@ -343,20 +334,19 @@ State 6
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 37
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 37
+    unit     go to state 31
 
 
 State 7
 
-   63 expr: O_DOUBLE_MINUS . expr
+   62 expr: O_DOUBLE_MINUS . expr
 
     O_MINUS         shift, and go to state 4
     O_NOT           shift, and go to state 5
@@ -364,20 +354,19 @@ State 7
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 38
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 38
+    unit     go to state 31
 
 
 State 8
 
-   71 unit: O_ADDRESS . IDENTIFIER
+   70 unit: O_ADDRESS . IDENTIFIER
 
     IDENTIFIER  shift, and go to state 39
 
@@ -417,25 +406,25 @@ State 13
    32 statement: RET . unit SEMICOLON
 
     O_ADDRESS   shift, and go to state 8
-    IDENTIFIER  shift, and go to state 43
+    IDENTIFIER  shift, and go to state 33
     INTEGER     shift, and go to state 17
     CHAR        shift, and go to state 18
     STRING      shift, and go to state 19
 
-    funcall  go to state 33
-    unit     go to state 44
+    funcall  go to state 34
+    unit     go to state 43
 
 
 State 14
 
    33 statement: BRK . SEMICOLON
 
-    SEMICOLON  shift, and go to state 45
+    SEMICOLON  shift, and go to state 44
 
 
 State 15
 
-   64 expr: LP . expr RP
+   63 expr: LP . expr RP
 
     O_MINUS         shift, and go to state 4
     O_NOT           shift, and go to state 5
@@ -443,15 +432,14 @@ State 15
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 46
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 45
+    unit     go to state 31
 
 
 State 16
@@ -463,44 +451,44 @@ State 16
    36           | IDENTIFIER . LOP_MINUS_ASSIGN expr
    37           | IDENTIFIER . LOP_MUL_ASSIGN expr
    38           | IDENTIFIER . LOP_DIV_ASSIGN expr
-   66 unit: IDENTIFIER .
+   65 unit: IDENTIFIER .
 
-    LOP_ASSIGN        shift, and go to state 47
-    LOP_ADD_ASSIGN    shift, and go to state 48
-    LOP_MINUS_ASSIGN  shift, and go to state 49
-    LOP_MUL_ASSIGN    shift, and go to state 50
-    LOP_DIV_ASSIGN    shift, and go to state 51
-    LP                shift, and go to state 52
+    LOP_ASSIGN        shift, and go to state 46
+    LOP_ADD_ASSIGN    shift, and go to state 47
+    LOP_MINUS_ASSIGN  shift, and go to state 48
+    LOP_MUL_ASSIGN    shift, and go to state 49
+    LOP_DIV_ASSIGN    shift, and go to state 50
+    LP                shift, and go to state 51
 
-    $default  reduce using rule 66 (unit)
+    $default  reduce using rule 65 (unit)
 
 
 State 17
 
-   67 unit: INTEGER .
+   66 unit: INTEGER .
 
-    $default  reduce using rule 67 (unit)
+    $default  reduce using rule 66 (unit)
 
 
 State 18
 
-   68 unit: CHAR .
+   67 unit: CHAR .
 
-    $default  reduce using rule 68 (unit)
+    $default  reduce using rule 67 (unit)
 
 
 State 19
 
-   69 unit: STRING .
+   68 unit: STRING .
 
-    $default  reduce using rule 69 (unit)
+    $default  reduce using rule 68 (unit)
 
 
 State 20
 
     0 $accept: program . $end
 
-    $end  shift, and go to state 53
+    $end  shift, and go to state 52
 
 
 State 21
@@ -535,7 +523,7 @@ State 21
     while        go to state 24
     fundes       go to state 25
     funcall      go to state 26
-    statement    go to state 54
+    statement    go to state 53
     assignment   go to state 28
     declaration  go to state 29
     expr         go to state 30
@@ -555,12 +543,12 @@ State 23
     6 if: if . else
    29 statement: if .
 
-    ELSE  shift, and go to state 55
+    ELSE  shift, and go to state 54
 
     ELSE      [reduce using rule 29 (statement)]
     $default  reduce using rule 29 (statement)
 
-    else  go to state 56
+    else  go to state 55
 
 
 State 24
@@ -580,12 +568,12 @@ State 25
 State 26
 
    27 statement: funcall . SEMICOLON
-   70 unit: funcall .
+   69 unit: funcall .
 
-    SEMICOLON  shift, and go to state 57
+    SEMICOLON  shift, and go to state 56
 
-    SEMICOLON  [reduce using rule 70 (unit)]
-    $default   reduce using rule 70 (unit)
+    SEMICOLON  [reduce using rule 69 (unit)]
+    $default   reduce using rule 69 (unit)
 
 
 State 27
@@ -598,63 +586,59 @@ State 27
 State 28
 
    25 statement: assignment . SEMICOLON
-   44 expr: assignment .
 
-    SEMICOLON  shift, and go to state 58
-
-    SEMICOLON  [reduce using rule 44 (expr)]
-    $default   reduce using rule 44 (expr)
+    SEMICOLON  shift, and go to state 57
 
 
 State 29
 
    24 statement: declaration . SEMICOLON
 
-    SEMICOLON  shift, and go to state 59
+    SEMICOLON  shift, and go to state 58
 
 
 State 30
 
    26 statement: expr . SEMICOLON
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_OR            shift, and go to state 71
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
-    SEMICOLON       shift, and go to state 75
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_OR            shift, and go to state 70
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
+    SEMICOLON       shift, and go to state 74
 
 
 State 31
 
-   65 expr: unit .
+   64 expr: unit .
 
-    $default  reduce using rule 65 (expr)
+    $default  reduce using rule 64 (expr)
 
 
 State 32
@@ -663,138 +647,142 @@ State 32
    13       | T . IDENTIFIER LP RP block
    39 declaration: T . idlist
 
-    IDENTIFIER  shift, and go to state 76
+    IDENTIFIER  shift, and go to state 75
 
-    idlist  go to state 77
+    idlist  go to state 76
 
 
 State 33
 
-   70 unit: funcall .
+   18 funcall: IDENTIFIER . LP params RP
+   19        | IDENTIFIER . LP RP
+   65 unit: IDENTIFIER .
 
-    $default  reduce using rule 70 (unit)
+    LP  shift, and go to state 51
+
+    $default  reduce using rule 65 (unit)
 
 
 State 34
 
-   44 expr: assignment .
+   69 unit: funcall .
 
-    $default  reduce using rule 44 (expr)
+    $default  reduce using rule 69 (unit)
 
 
 State 35
 
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   58     | O_MINUS expr .
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   57     | O_MINUS expr .
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
+
+    O_DOUBLE_ADD    [reduce using rule 57 (expr)]
+    O_DOUBLE_MINUS  [reduce using rule 57 (expr)]
+    $default        reduce using rule 57 (expr)
+
+
+State 36
+
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   58     | O_NOT expr .
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
+
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
     O_DOUBLE_ADD    [reduce using rule 58 (expr)]
     O_DOUBLE_MINUS  [reduce using rule 58 (expr)]
     $default        reduce using rule 58 (expr)
 
 
-State 36
-
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   59     | O_NOT expr .
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
-
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
-
-    O_DOUBLE_ADD    [reduce using rule 59 (expr)]
-    O_DOUBLE_MINUS  [reduce using rule 59 (expr)]
-    $default        reduce using rule 59 (expr)
-
-
 State 37
 
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
-   62     | O_DOUBLE_ADD expr .
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
+   61     | O_DOUBLE_ADD expr .
 
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
+
+    O_DOUBLE_ADD    [reduce using rule 61 (expr)]
+    O_DOUBLE_MINUS  [reduce using rule 61 (expr)]
+    $default        reduce using rule 61 (expr)
+
+
+State 38
+
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
+   62     | O_DOUBLE_MINUS expr .
+
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
     O_DOUBLE_ADD    [reduce using rule 62 (expr)]
     O_DOUBLE_MINUS  [reduce using rule 62 (expr)]
     $default        reduce using rule 62 (expr)
 
 
-State 38
-
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
-   63     | O_DOUBLE_MINUS expr .
-
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
-
-    O_DOUBLE_ADD    [reduce using rule 63 (expr)]
-    O_DOUBLE_MINUS  [reduce using rule 63 (expr)]
-    $default        reduce using rule 63 (expr)
-
-
 State 39
 
-   71 unit: O_ADDRESS IDENTIFIER .
+   70 unit: O_ADDRESS IDENTIFIER .
 
-    $default  reduce using rule 71 (unit)
+    $default  reduce using rule 70 (unit)
 
 
 State 40
@@ -807,15 +795,14 @@ State 40
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 78
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 77
+    unit     go to state 31
 
 
 State 41
@@ -829,15 +816,14 @@ State 41
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 79
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 78
+    unit     go to state 31
 
 
 State 42
@@ -848,76 +834,65 @@ State 42
     T_CHAR      shift, and go to state 1
     T_INT       shift, and go to state 2
     T_BOOL      shift, and go to state 3
-    IDENTIFIER  shift, and go to state 80
+    IDENTIFIER  shift, and go to state 79
 
-    assignment   go to state 81
-    declaration  go to state 82
-    T            go to state 83
+    assignment   go to state 80
+    declaration  go to state 81
+    T            go to state 82
 
 
 State 43
 
-   18 funcall: IDENTIFIER . LP params RP
-   19        | IDENTIFIER . LP RP
-   66 unit: IDENTIFIER .
+   32 statement: RET unit . SEMICOLON
 
-    LP  shift, and go to state 52
-
-    $default  reduce using rule 66 (unit)
+    SEMICOLON  shift, and go to state 83
 
 
 State 44
-
-   32 statement: RET unit . SEMICOLON
-
-    SEMICOLON  shift, and go to state 84
-
-
-State 45
 
    33 statement: BRK SEMICOLON .
 
     $default  reduce using rule 33 (statement)
 
 
+State 45
+
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
+   63     | LP expr . RP
+
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_OR            shift, and go to state 70
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
+    RP              shift, and go to state 84
+
+
 State 46
-
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
-   64     | LP expr . RP
-
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_OR            shift, and go to state 71
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
-    RP              shift, and go to state 85
-
-
-State 47
 
    34 assignment: IDENTIFIER LOP_ASSIGN . expr
 
@@ -927,18 +902,17 @@ State 47
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 86
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 85
+    unit     go to state 31
 
 
-State 48
+State 47
 
    35 assignment: IDENTIFIER LOP_ADD_ASSIGN . expr
 
@@ -948,18 +922,17 @@ State 48
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 87
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 86
+    unit     go to state 31
 
 
-State 49
+State 48
 
    36 assignment: IDENTIFIER LOP_MINUS_ASSIGN . expr
 
@@ -969,18 +942,17 @@ State 49
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 88
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 87
+    unit     go to state 31
 
 
-State 50
+State 49
 
    37 assignment: IDENTIFIER LOP_MUL_ASSIGN . expr
 
@@ -990,18 +962,17 @@ State 50
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 89
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 88
+    unit     go to state 31
 
 
-State 51
+State 50
 
    38 assignment: IDENTIFIER LOP_DIV_ASSIGN . expr
 
@@ -1011,18 +982,17 @@ State 51
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 90
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 89
+    unit     go to state 31
 
 
-State 52
+State 51
 
    18 funcall: IDENTIFIER LP . params RP
    19        | IDENTIFIER LP . RP
@@ -1033,34 +1003,33 @@ State 52
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    RP              shift, and go to state 91
-    IDENTIFIER      shift, and go to state 16
+    RP              shift, and go to state 90
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    params      go to state 92
-    assignment  go to state 34
-    expr        go to state 93
-    unit        go to state 31
+    funcall  go to state 34
+    params   go to state 91
+    expr     go to state 92
+    unit     go to state 31
 
 
-State 53
+State 52
 
     0 $accept: program $end .
 
     $default  accept
 
 
-State 54
+State 53
 
     3 statements: statements statement .
 
     $default  reduce using rule 3 (statements)
 
 
-State 55
+State 54
 
     9 else: ELSE . block
    10     | ELSE . statement
@@ -1080,7 +1049,7 @@ State 55
     RET             shift, and go to state 13
     BRK             shift, and go to state 14
     LP              shift, and go to state 15
-    LC              shift, and go to state 94
+    LC              shift, and go to state 93
     IDENTIFIER      shift, and go to state 16
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
@@ -1091,8 +1060,8 @@ State 55
     while        go to state 24
     fundes       go to state 25
     funcall      go to state 26
-    block        go to state 95
-    statement    go to state 96
+    block        go to state 94
+    statement    go to state 95
     assignment   go to state 28
     declaration  go to state 29
     expr         go to state 30
@@ -1100,37 +1069,37 @@ State 55
     T            go to state 32
 
 
-State 56
+State 55
 
     6 if: if else .
 
     $default  reduce using rule 6 (if)
 
 
-State 57
+State 56
 
    27 statement: funcall SEMICOLON .
 
     $default  reduce using rule 27 (statement)
 
 
-State 58
+State 57
 
    25 statement: assignment SEMICOLON .
 
     $default  reduce using rule 25 (statement)
 
 
-State 59
+State 58
 
    24 statement: declaration SEMICOLON .
 
     $default  reduce using rule 24 (statement)
 
 
-State 60
+State 59
 
-   53 expr: expr O_ADD . expr
+   52 expr: expr O_ADD . expr
 
     O_MINUS         shift, and go to state 4
     O_NOT           shift, and go to state 5
@@ -1138,20 +1107,39 @@ State 60
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 97
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 96
+    unit     go to state 31
+
+
+State 60
+
+   53 expr: expr O_MINUS . expr
+
+    O_MINUS         shift, and go to state 4
+    O_NOT           shift, and go to state 5
+    O_DOUBLE_ADD    shift, and go to state 6
+    O_DOUBLE_MINUS  shift, and go to state 7
+    O_ADDRESS       shift, and go to state 8
+    LP              shift, and go to state 15
+    IDENTIFIER      shift, and go to state 33
+    INTEGER         shift, and go to state 17
+    CHAR            shift, and go to state 18
+    STRING          shift, and go to state 19
+
+    funcall  go to state 34
+    expr     go to state 97
+    unit     go to state 31
 
 
 State 61
 
-   54 expr: expr O_MINUS . expr
+   54 expr: expr O_MUL . expr
 
     O_MINUS         shift, and go to state 4
     O_NOT           shift, and go to state 5
@@ -1159,20 +1147,19 @@ State 61
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 98
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 98
+    unit     go to state 31
 
 
 State 62
 
-   55 expr: expr O_MUL . expr
+   55 expr: expr O_DIV . expr
 
     O_MINUS         shift, and go to state 4
     O_NOT           shift, and go to state 5
@@ -1180,20 +1167,19 @@ State 62
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 99
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 99
+    unit     go to state 31
 
 
 State 63
 
-   56 expr: expr O_DIV . expr
+   46 expr: expr O_EQ . expr
 
     O_MINUS         shift, and go to state 4
     O_NOT           shift, and go to state 5
@@ -1201,20 +1187,19 @@ State 63
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 100
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 100
+    unit     go to state 31
 
 
 State 64
 
-   47 expr: expr O_EQ . expr
+   47 expr: expr O_UEQ . expr
 
     O_MINUS         shift, and go to state 4
     O_NOT           shift, and go to state 5
@@ -1222,20 +1207,19 @@ State 64
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 101
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 101
+    unit     go to state 31
 
 
 State 65
 
-   48 expr: expr O_UEQ . expr
+   48 expr: expr O_GRE . expr
 
     O_MINUS         shift, and go to state 4
     O_NOT           shift, and go to state 5
@@ -1243,20 +1227,19 @@ State 65
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 102
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 102
+    unit     go to state 31
 
 
 State 66
 
-   49 expr: expr O_GRE . expr
+   49 expr: expr O_LES . expr
 
     O_MINUS         shift, and go to state 4
     O_NOT           shift, and go to state 5
@@ -1264,20 +1247,19 @@ State 66
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 103
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 103
+    unit     go to state 31
 
 
 State 67
 
-   50 expr: expr O_LES . expr
+   50 expr: expr O_GREEQ . expr
 
     O_MINUS         shift, and go to state 4
     O_NOT           shift, and go to state 5
@@ -1285,20 +1267,19 @@ State 67
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 104
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 104
+    unit     go to state 31
 
 
 State 68
 
-   51 expr: expr O_GREEQ . expr
+   51 expr: expr O_LESEQ . expr
 
     O_MINUS         shift, and go to state 4
     O_NOT           shift, and go to state 5
@@ -1306,20 +1287,19 @@ State 68
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 105
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 105
+    unit     go to state 31
 
 
 State 69
 
-   52 expr: expr O_LESEQ . expr
+   44 expr: expr O_AND . expr
 
     O_MINUS         shift, and go to state 4
     O_NOT           shift, and go to state 5
@@ -1327,20 +1307,19 @@ State 69
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 106
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 106
+    unit     go to state 31
 
 
 State 70
 
-   45 expr: expr O_AND . expr
+   45 expr: expr O_OR . expr
 
     O_MINUS         shift, and go to state 4
     O_NOT           shift, and go to state 5
@@ -1348,20 +1327,19 @@ State 70
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 107
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 107
+    unit     go to state 31
 
 
 State 71
 
-   46 expr: expr O_OR . expr
+   56 expr: expr O_MOD . expr
 
     O_MINUS         shift, and go to state 4
     O_NOT           shift, and go to state 5
@@ -1369,159 +1347,137 @@ State 71
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 108
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 108
+    unit     go to state 31
 
 
 State 72
 
-   57 expr: expr O_MOD . expr
+   59 expr: expr O_DOUBLE_ADD .
 
-    O_MINUS         shift, and go to state 4
-    O_NOT           shift, and go to state 5
-    O_DOUBLE_ADD    shift, and go to state 6
-    O_DOUBLE_MINUS  shift, and go to state 7
-    O_ADDRESS       shift, and go to state 8
-    LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
-    INTEGER         shift, and go to state 17
-    CHAR            shift, and go to state 18
-    STRING          shift, and go to state 19
-
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 109
-    unit        go to state 31
+    $default  reduce using rule 59 (expr)
 
 
 State 73
 
-   60 expr: expr O_DOUBLE_ADD .
+   60 expr: expr O_DOUBLE_MINUS .
 
     $default  reduce using rule 60 (expr)
 
 
 State 74
 
-   61 expr: expr O_DOUBLE_MINUS .
-
-    $default  reduce using rule 61 (expr)
-
-
-State 75
-
    26 statement: expr SEMICOLON .
 
     $default  reduce using rule 26 (statement)
 
 
-State 76
+State 75
 
    12 fundes: T IDENTIFIER . LP funcparams RP block
    13       | T IDENTIFIER . LP RP block
    42 idlist: IDENTIFIER .
    43       | IDENTIFIER . LOP_ASSIGN expr
 
-    LOP_ASSIGN  shift, and go to state 110
-    LP          shift, and go to state 111
+    LOP_ASSIGN  shift, and go to state 109
+    LP          shift, and go to state 110
 
     $default  reduce using rule 42 (idlist)
 
 
-State 77
+State 76
 
    39 declaration: T idlist .
    40 idlist: idlist . COMMA IDENTIFIER
    41       | idlist . COMMA IDENTIFIER LOP_ASSIGN expr
 
-    COMMA  shift, and go to state 112
+    COMMA  shift, and go to state 111
 
     $default  reduce using rule 39 (declaration)
 
 
-State 78
+State 77
 
    11 while: WHILE LP expr . RP block
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_OR            shift, and go to state 71
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_OR            shift, and go to state 70
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
+    RP              shift, and go to state 112
+
+
+State 78
+
+    7 if: IF LP expr . RP block
+    8   | IF LP expr . RP statement
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
+
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_OR            shift, and go to state 70
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
     RP              shift, and go to state 113
 
 
 State 79
-
-    7 if: IF LP expr . RP block
-    8   | IF LP expr . RP statement
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
-
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_OR            shift, and go to state 71
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
-    RP              shift, and go to state 114
-
-
-State 80
 
    34 assignment: IDENTIFIER . LOP_ASSIGN expr
    35           | IDENTIFIER . LOP_ADD_ASSIGN expr
@@ -1529,370 +1485,295 @@ State 80
    37           | IDENTIFIER . LOP_MUL_ASSIGN expr
    38           | IDENTIFIER . LOP_DIV_ASSIGN expr
 
-    LOP_ASSIGN        shift, and go to state 47
-    LOP_ADD_ASSIGN    shift, and go to state 48
-    LOP_MINUS_ASSIGN  shift, and go to state 49
-    LOP_MUL_ASSIGN    shift, and go to state 50
-    LOP_DIV_ASSIGN    shift, and go to state 51
+    LOP_ASSIGN        shift, and go to state 46
+    LOP_ADD_ASSIGN    shift, and go to state 47
+    LOP_MINUS_ASSIGN  shift, and go to state 48
+    LOP_MUL_ASSIGN    shift, and go to state 49
+    LOP_DIV_ASSIGN    shift, and go to state 50
+
+
+State 80
+
+    5 for: FOR LP assignment . SEMICOLON expr SEMICOLON expr RP block
+
+    SEMICOLON  shift, and go to state 114
 
 
 State 81
 
-    5 for: FOR LP assignment . SEMICOLON expr SEMICOLON expr RP block
+    4 for: FOR LP declaration . SEMICOLON expr SEMICOLON expr RP block
 
     SEMICOLON  shift, and go to state 115
 
 
 State 82
 
-    4 for: FOR LP declaration . SEMICOLON expr SEMICOLON expr RP block
+   39 declaration: T . idlist
 
-    SEMICOLON  shift, and go to state 116
+    IDENTIFIER  shift, and go to state 116
+
+    idlist  go to state 76
 
 
 State 83
-
-   39 declaration: T . idlist
-
-    IDENTIFIER  shift, and go to state 117
-
-    idlist  go to state 77
-
-
-State 84
 
    32 statement: RET unit SEMICOLON .
 
     $default  reduce using rule 32 (statement)
 
 
+State 84
+
+   63 expr: LP expr RP .
+
+    $default  reduce using rule 63 (expr)
+
+
 State 85
 
-   64 expr: LP expr RP .
+   34 assignment: IDENTIFIER LOP_ASSIGN expr .
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    $default  reduce using rule 64 (expr)
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_OR            shift, and go to state 70
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
+
+    $default  reduce using rule 34 (assignment)
 
 
 State 86
 
-   34 assignment: IDENTIFIER LOP_ASSIGN expr .
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   35 assignment: IDENTIFIER LOP_ADD_ASSIGN expr .
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_OR            shift, and go to state 71
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_OR            shift, and go to state 70
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
-    O_ADD           [reduce using rule 34 (assignment)]
-    O_MINUS         [reduce using rule 34 (assignment)]
-    O_MUL           [reduce using rule 34 (assignment)]
-    O_DIV           [reduce using rule 34 (assignment)]
-    O_EQ            [reduce using rule 34 (assignment)]
-    O_UEQ           [reduce using rule 34 (assignment)]
-    O_GRE           [reduce using rule 34 (assignment)]
-    O_LES           [reduce using rule 34 (assignment)]
-    O_GREEQ         [reduce using rule 34 (assignment)]
-    O_LESEQ         [reduce using rule 34 (assignment)]
-    O_AND           [reduce using rule 34 (assignment)]
-    O_OR            [reduce using rule 34 (assignment)]
-    O_MOD           [reduce using rule 34 (assignment)]
-    O_DOUBLE_ADD    [reduce using rule 34 (assignment)]
-    O_DOUBLE_MINUS  [reduce using rule 34 (assignment)]
-    $default        reduce using rule 34 (assignment)
+    $default  reduce using rule 35 (assignment)
 
 
 State 87
 
-   35 assignment: IDENTIFIER LOP_ADD_ASSIGN expr .
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   36 assignment: IDENTIFIER LOP_MINUS_ASSIGN expr .
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_OR            shift, and go to state 71
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_OR            shift, and go to state 70
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
-    O_ADD           [reduce using rule 35 (assignment)]
-    O_MINUS         [reduce using rule 35 (assignment)]
-    O_MUL           [reduce using rule 35 (assignment)]
-    O_DIV           [reduce using rule 35 (assignment)]
-    O_EQ            [reduce using rule 35 (assignment)]
-    O_UEQ           [reduce using rule 35 (assignment)]
-    O_GRE           [reduce using rule 35 (assignment)]
-    O_LES           [reduce using rule 35 (assignment)]
-    O_GREEQ         [reduce using rule 35 (assignment)]
-    O_LESEQ         [reduce using rule 35 (assignment)]
-    O_AND           [reduce using rule 35 (assignment)]
-    O_OR            [reduce using rule 35 (assignment)]
-    O_MOD           [reduce using rule 35 (assignment)]
-    O_DOUBLE_ADD    [reduce using rule 35 (assignment)]
-    O_DOUBLE_MINUS  [reduce using rule 35 (assignment)]
-    $default        reduce using rule 35 (assignment)
+    $default  reduce using rule 36 (assignment)
 
 
 State 88
 
-   36 assignment: IDENTIFIER LOP_MINUS_ASSIGN expr .
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   37 assignment: IDENTIFIER LOP_MUL_ASSIGN expr .
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_OR            shift, and go to state 71
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_OR            shift, and go to state 70
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
-    O_ADD           [reduce using rule 36 (assignment)]
-    O_MINUS         [reduce using rule 36 (assignment)]
-    O_MUL           [reduce using rule 36 (assignment)]
-    O_DIV           [reduce using rule 36 (assignment)]
-    O_EQ            [reduce using rule 36 (assignment)]
-    O_UEQ           [reduce using rule 36 (assignment)]
-    O_GRE           [reduce using rule 36 (assignment)]
-    O_LES           [reduce using rule 36 (assignment)]
-    O_GREEQ         [reduce using rule 36 (assignment)]
-    O_LESEQ         [reduce using rule 36 (assignment)]
-    O_AND           [reduce using rule 36 (assignment)]
-    O_OR            [reduce using rule 36 (assignment)]
-    O_MOD           [reduce using rule 36 (assignment)]
-    O_DOUBLE_ADD    [reduce using rule 36 (assignment)]
-    O_DOUBLE_MINUS  [reduce using rule 36 (assignment)]
-    $default        reduce using rule 36 (assignment)
+    $default  reduce using rule 37 (assignment)
 
 
 State 89
 
-   37 assignment: IDENTIFIER LOP_MUL_ASSIGN expr .
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   38 assignment: IDENTIFIER LOP_DIV_ASSIGN expr .
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_OR            shift, and go to state 71
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_OR            shift, and go to state 70
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
-    O_ADD           [reduce using rule 37 (assignment)]
-    O_MINUS         [reduce using rule 37 (assignment)]
-    O_MUL           [reduce using rule 37 (assignment)]
-    O_DIV           [reduce using rule 37 (assignment)]
-    O_EQ            [reduce using rule 37 (assignment)]
-    O_UEQ           [reduce using rule 37 (assignment)]
-    O_GRE           [reduce using rule 37 (assignment)]
-    O_LES           [reduce using rule 37 (assignment)]
-    O_GREEQ         [reduce using rule 37 (assignment)]
-    O_LESEQ         [reduce using rule 37 (assignment)]
-    O_AND           [reduce using rule 37 (assignment)]
-    O_OR            [reduce using rule 37 (assignment)]
-    O_MOD           [reduce using rule 37 (assignment)]
-    O_DOUBLE_ADD    [reduce using rule 37 (assignment)]
-    O_DOUBLE_MINUS  [reduce using rule 37 (assignment)]
-    $default        reduce using rule 37 (assignment)
+    $default  reduce using rule 38 (assignment)
 
 
 State 90
-
-   38 assignment: IDENTIFIER LOP_DIV_ASSIGN expr .
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
-
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_OR            shift, and go to state 71
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
-
-    O_ADD           [reduce using rule 38 (assignment)]
-    O_MINUS         [reduce using rule 38 (assignment)]
-    O_MUL           [reduce using rule 38 (assignment)]
-    O_DIV           [reduce using rule 38 (assignment)]
-    O_EQ            [reduce using rule 38 (assignment)]
-    O_UEQ           [reduce using rule 38 (assignment)]
-    O_GRE           [reduce using rule 38 (assignment)]
-    O_LES           [reduce using rule 38 (assignment)]
-    O_GREEQ         [reduce using rule 38 (assignment)]
-    O_LESEQ         [reduce using rule 38 (assignment)]
-    O_AND           [reduce using rule 38 (assignment)]
-    O_OR            [reduce using rule 38 (assignment)]
-    O_MOD           [reduce using rule 38 (assignment)]
-    O_DOUBLE_ADD    [reduce using rule 38 (assignment)]
-    O_DOUBLE_MINUS  [reduce using rule 38 (assignment)]
-    $default        reduce using rule 38 (assignment)
-
-
-State 91
 
    19 funcall: IDENTIFIER LP RP .
 
     $default  reduce using rule 19 (funcall)
 
 
-State 92
+State 91
 
    18 funcall: IDENTIFIER LP params . RP
    20 params: params . COMMA unit
 
-    COMMA  shift, and go to state 118
-    RP     shift, and go to state 119
+    COMMA  shift, and go to state 117
+    RP     shift, and go to state 118
 
 
-State 93
+State 92
 
    21 params: expr .
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_OR            shift, and go to state 71
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_OR            shift, and go to state 70
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
     $default  reduce using rule 21 (params)
 
 
-State 94
+State 93
 
    22 block: LC . statements RC
 
@@ -1916,7 +1797,7 @@ State 94
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    statements   go to state 120
+    statements   go to state 119
     for          go to state 22
     if           go to state 23
     while        go to state 24
@@ -1930,44 +1811,74 @@ State 94
     T            go to state 32
 
 
-State 95
+State 94
 
     9 else: ELSE block .
 
     $default  reduce using rule 9 (else)
 
 
-State 96
+State 95
 
    10 else: ELSE statement .
 
     $default  reduce using rule 10 (else)
 
 
+State 96
+
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   52     | expr O_ADD expr .
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
+
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
+
+    O_DOUBLE_ADD    [reduce using rule 52 (expr)]
+    O_DOUBLE_MINUS  [reduce using rule 52 (expr)]
+    $default        reduce using rule 52 (expr)
+
+
 State 97
 
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   53     | expr O_ADD expr .
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   53     | expr O_MINUS expr .
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
     O_DOUBLE_ADD    [reduce using rule 53 (expr)]
     O_DOUBLE_MINUS  [reduce using rule 53 (expr)]
@@ -1976,28 +1887,25 @@ State 97
 
 State 98
 
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   54     | expr O_MINUS expr .
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   54     | expr O_MUL expr .
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
     O_DOUBLE_ADD    [reduce using rule 54 (expr)]
     O_DOUBLE_MINUS  [reduce using rule 54 (expr)]
@@ -2006,25 +1914,25 @@ State 98
 
 State 99
 
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   55     | expr O_MUL expr .
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   55     | expr O_DIV expr .
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
     O_DOUBLE_ADD    [reduce using rule 55 (expr)]
     O_DOUBLE_MINUS  [reduce using rule 55 (expr)]
@@ -2033,57 +1941,62 @@ State 99
 
 State 100
 
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   56     | expr O_DIV expr .
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   46     | expr O_EQ expr .
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
-    O_DOUBLE_ADD    [reduce using rule 56 (expr)]
-    O_DOUBLE_MINUS  [reduce using rule 56 (expr)]
-    $default        reduce using rule 56 (expr)
+    O_DOUBLE_ADD    [reduce using rule 46 (expr)]
+    O_DOUBLE_MINUS  [reduce using rule 46 (expr)]
+    $default        reduce using rule 46 (expr)
 
 
 State 101
 
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   47     | expr O_EQ expr .
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   47     | expr O_UEQ expr .
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
     O_DOUBLE_ADD    [reduce using rule 47 (expr)]
     O_DOUBLE_MINUS  [reduce using rule 47 (expr)]
@@ -2092,30 +2005,30 @@ State 101
 
 State 102
 
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   48     | expr O_UEQ expr .
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   48     | expr O_GRE expr .
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
     O_DOUBLE_ADD    [reduce using rule 48 (expr)]
     O_DOUBLE_MINUS  [reduce using rule 48 (expr)]
@@ -2124,30 +2037,30 @@ State 102
 
 State 103
 
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   49     | expr O_GRE expr .
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   49     | expr O_LES expr .
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
     O_DOUBLE_ADD    [reduce using rule 49 (expr)]
     O_DOUBLE_MINUS  [reduce using rule 49 (expr)]
@@ -2156,30 +2069,30 @@ State 103
 
 State 104
 
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   50     | expr O_LES expr .
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   50     | expr O_GREEQ expr .
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
     O_DOUBLE_ADD    [reduce using rule 50 (expr)]
     O_DOUBLE_MINUS  [reduce using rule 50 (expr)]
@@ -2188,30 +2101,30 @@ State 104
 
 State 105
 
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   51     | expr O_GREEQ expr .
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   51     | expr O_LESEQ expr .
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
     O_DOUBLE_ADD    [reduce using rule 51 (expr)]
     O_DOUBLE_MINUS  [reduce using rule 51 (expr)]
@@ -2220,68 +2133,75 @@ State 105
 
 State 106
 
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   52     | expr O_LESEQ expr .
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   44     | expr O_AND expr .
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
-    O_DOUBLE_ADD    [reduce using rule 52 (expr)]
-    O_DOUBLE_MINUS  [reduce using rule 52 (expr)]
-    $default        reduce using rule 52 (expr)
+    O_DOUBLE_ADD    [reduce using rule 44 (expr)]
+    O_DOUBLE_MINUS  [reduce using rule 44 (expr)]
+    $default        reduce using rule 44 (expr)
 
 
 State 107
 
-   45 expr: expr . O_AND expr
-   45     | expr O_AND expr .
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   45     | expr O_OR expr .
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
     O_DOUBLE_ADD    [reduce using rule 45 (expr)]
     O_DOUBLE_MINUS  [reduce using rule 45 (expr)]
@@ -2290,73 +2210,34 @@ State 107
 
 State 108
 
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   46     | expr O_OR expr .
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   56     | expr O_MOD expr .
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
-    O_DOUBLE_ADD    [reduce using rule 46 (expr)]
-    O_DOUBLE_MINUS  [reduce using rule 46 (expr)]
-    $default        reduce using rule 46 (expr)
+    O_DOUBLE_ADD    [reduce using rule 56 (expr)]
+    O_DOUBLE_MINUS  [reduce using rule 56 (expr)]
+    $default        reduce using rule 56 (expr)
 
 
 State 109
-
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   57     | expr O_MOD expr .
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
-
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
-
-    O_DOUBLE_ADD    [reduce using rule 57 (expr)]
-    O_DOUBLE_MINUS  [reduce using rule 57 (expr)]
-    $default        reduce using rule 57 (expr)
-
-
-State 110
 
    43 idlist: IDENTIFIER LOP_ASSIGN . expr
 
@@ -2366,18 +2247,17 @@ State 110
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 121
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 120
+    unit     go to state 31
 
 
-State 111
+State 110
 
    12 fundes: T IDENTIFIER LP . funcparams RP block
    13       | T IDENTIFIER LP . RP block
@@ -2385,31 +2265,31 @@ State 111
     T_CHAR  shift, and go to state 1
     T_INT   shift, and go to state 2
     T_BOOL  shift, and go to state 3
-    RP      shift, and go to state 122
+    RP      shift, and go to state 121
 
-    funcparams  go to state 123
-    declsingle  go to state 124
-    T           go to state 125
+    funcparams  go to state 122
+    declsingle  go to state 123
+    T           go to state 124
 
 
-State 112
+State 111
 
    40 idlist: idlist COMMA . IDENTIFIER
    41       | idlist COMMA . IDENTIFIER LOP_ASSIGN expr
 
-    IDENTIFIER  shift, and go to state 126
+    IDENTIFIER  shift, and go to state 125
 
 
-State 113
+State 112
 
    11 while: WHILE LP expr RP . block
 
-    LC  shift, and go to state 94
+    LC  shift, and go to state 93
 
-    block  go to state 127
+    block  go to state 126
 
 
-State 114
+State 113
 
     7 if: IF LP expr RP . block
     8   | IF LP expr RP . statement
@@ -2429,7 +2309,7 @@ State 114
     RET             shift, and go to state 13
     BRK             shift, and go to state 14
     LP              shift, and go to state 15
-    LC              shift, and go to state 94
+    LC              shift, and go to state 93
     IDENTIFIER      shift, and go to state 16
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
@@ -2440,8 +2320,8 @@ State 114
     while        go to state 24
     fundes       go to state 25
     funcall      go to state 26
-    block        go to state 128
-    statement    go to state 129
+    block        go to state 127
+    statement    go to state 128
     assignment   go to state 28
     declaration  go to state 29
     expr         go to state 30
@@ -2449,7 +2329,7 @@ State 114
     T            go to state 32
 
 
-State 115
+State 114
 
     5 for: FOR LP assignment SEMICOLON . expr SEMICOLON expr RP block
 
@@ -2459,18 +2339,17 @@ State 115
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 130
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 129
+    unit     go to state 31
 
 
-State 116
+State 115
 
     4 for: FOR LP declaration SEMICOLON . expr SEMICOLON expr RP block
 
@@ -2480,49 +2359,48 @@ State 116
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 131
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 130
+    unit     go to state 31
 
 
-State 117
+State 116
 
    42 idlist: IDENTIFIER .
    43       | IDENTIFIER . LOP_ASSIGN expr
 
-    LOP_ASSIGN  shift, and go to state 110
+    LOP_ASSIGN  shift, and go to state 109
 
     $default  reduce using rule 42 (idlist)
 
 
-State 118
+State 117
 
    20 params: params COMMA . unit
 
     O_ADDRESS   shift, and go to state 8
-    IDENTIFIER  shift, and go to state 43
+    IDENTIFIER  shift, and go to state 33
     INTEGER     shift, and go to state 17
     CHAR        shift, and go to state 18
     STRING      shift, and go to state 19
 
-    funcall  go to state 33
-    unit     go to state 132
+    funcall  go to state 34
+    unit     go to state 131
 
 
-State 119
+State 118
 
    18 funcall: IDENTIFIER LP params RP .
 
     $default  reduce using rule 18 (funcall)
 
 
-State 120
+State 119
 
     3 statements: statements . statement
    22 block: LC statements . RC
@@ -2542,7 +2420,7 @@ State 120
     RET             shift, and go to state 13
     BRK             shift, and go to state 14
     LP              shift, and go to state 15
-    RC              shift, and go to state 133
+    RC              shift, and go to state 132
     IDENTIFIER      shift, and go to state 16
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
@@ -2553,7 +2431,7 @@ State 120
     while        go to state 24
     fundes       go to state 25
     funcall      go to state 26
-    statement    go to state 54
+    statement    go to state 53
     assignment   go to state 28
     declaration  go to state 29
     expr         go to state 30
@@ -2561,204 +2439,204 @@ State 120
     T            go to state 32
 
 
-State 121
+State 120
 
    43 idlist: IDENTIFIER LOP_ASSIGN expr .
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_OR            shift, and go to state 71
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_OR            shift, and go to state 70
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
     $default  reduce using rule 43 (idlist)
 
 
-State 122
+State 121
 
    13 fundes: T IDENTIFIER LP RP . block
 
-    LC  shift, and go to state 94
+    LC  shift, and go to state 93
 
-    block  go to state 134
+    block  go to state 133
 
 
-State 123
+State 122
 
    12 fundes: T IDENTIFIER LP funcparams . RP block
    14 funcparams: funcparams . COMMA declsingle
 
-    COMMA  shift, and go to state 135
-    RP     shift, and go to state 136
+    COMMA  shift, and go to state 134
+    RP     shift, and go to state 135
 
 
-State 124
+State 123
 
    15 funcparams: declsingle .
 
     $default  reduce using rule 15 (funcparams)
 
 
-State 125
+State 124
 
    16 declsingle: T . IDENTIFIER
    17           | T . IDENTIFIER LOP_ASSIGN expr
 
-    IDENTIFIER  shift, and go to state 137
+    IDENTIFIER  shift, and go to state 136
 
 
-State 126
+State 125
 
    40 idlist: idlist COMMA IDENTIFIER .
    41       | idlist COMMA IDENTIFIER . LOP_ASSIGN expr
 
-    LOP_ASSIGN  shift, and go to state 138
+    LOP_ASSIGN  shift, and go to state 137
 
     $default  reduce using rule 40 (idlist)
 
 
-State 127
+State 126
 
    11 while: WHILE LP expr RP block .
 
     $default  reduce using rule 11 (while)
 
 
-State 128
+State 127
 
     7 if: IF LP expr RP block .
 
     $default  reduce using rule 7 (if)
 
 
-State 129
+State 128
 
     8 if: IF LP expr RP statement .
 
     $default  reduce using rule 8 (if)
 
 
-State 130
+State 129
 
     5 for: FOR LP assignment SEMICOLON expr . SEMICOLON expr RP block
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_OR            shift, and go to state 71
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_OR            shift, and go to state 70
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
+    SEMICOLON       shift, and go to state 138
+
+
+State 130
+
+    4 for: FOR LP declaration SEMICOLON expr . SEMICOLON expr RP block
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
+
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_OR            shift, and go to state 70
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
     SEMICOLON       shift, and go to state 139
 
 
 State 131
-
-    4 for: FOR LP declaration SEMICOLON expr . SEMICOLON expr RP block
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
-
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_OR            shift, and go to state 71
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
-    SEMICOLON       shift, and go to state 140
-
-
-State 132
 
    20 params: params COMMA unit .
 
     $default  reduce using rule 20 (params)
 
 
-State 133
+State 132
 
    22 block: LC statements RC .
 
     $default  reduce using rule 22 (block)
 
 
-State 134
+State 133
 
    13 fundes: T IDENTIFIER LP RP block .
 
     $default  reduce using rule 13 (fundes)
 
 
-State 135
+State 134
 
    14 funcparams: funcparams COMMA . declsingle
 
@@ -2766,30 +2644,30 @@ State 135
     T_INT   shift, and go to state 2
     T_BOOL  shift, and go to state 3
 
-    declsingle  go to state 141
-    T           go to state 125
+    declsingle  go to state 140
+    T           go to state 124
+
+
+State 135
+
+   12 fundes: T IDENTIFIER LP funcparams RP . block
+
+    LC  shift, and go to state 93
+
+    block  go to state 141
 
 
 State 136
 
-   12 fundes: T IDENTIFIER LP funcparams RP . block
-
-    LC  shift, and go to state 94
-
-    block  go to state 142
-
-
-State 137
-
    16 declsingle: T IDENTIFIER .
    17           | T IDENTIFIER . LOP_ASSIGN expr
 
-    LOP_ASSIGN  shift, and go to state 143
+    LOP_ASSIGN  shift, and go to state 142
 
     $default  reduce using rule 16 (declsingle)
 
 
-State 138
+State 137
 
    41 idlist: idlist COMMA IDENTIFIER LOP_ASSIGN . expr
 
@@ -2799,18 +2677,17 @@ State 138
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 144
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 143
+    unit     go to state 31
 
 
-State 139
+State 138
 
     5 for: FOR LP assignment SEMICOLON expr SEMICOLON . expr RP block
 
@@ -2820,18 +2697,17 @@ State 139
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 145
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 144
+    unit     go to state 31
 
 
-State 140
+State 139
 
     4 for: FOR LP declaration SEMICOLON expr SEMICOLON . expr RP block
 
@@ -2841,32 +2717,31 @@ State 140
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 146
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 145
+    unit     go to state 31
 
 
-State 141
+State 140
 
    14 funcparams: funcparams COMMA declsingle .
 
     $default  reduce using rule 14 (funcparams)
 
 
-State 142
+State 141
 
    12 fundes: T IDENTIFIER LP funcparams RP block .
 
     $default  reduce using rule 12 (fundes)
 
 
-State 143
+State 142
 
    17 declsingle: T IDENTIFIER LOP_ASSIGN . expr
 
@@ -2876,193 +2751,192 @@ State 143
     O_DOUBLE_MINUS  shift, and go to state 7
     O_ADDRESS       shift, and go to state 8
     LP              shift, and go to state 15
-    IDENTIFIER      shift, and go to state 16
+    IDENTIFIER      shift, and go to state 33
     INTEGER         shift, and go to state 17
     CHAR            shift, and go to state 18
     STRING          shift, and go to state 19
 
-    funcall     go to state 33
-    assignment  go to state 34
-    expr        go to state 147
-    unit        go to state 31
+    funcall  go to state 34
+    expr     go to state 146
+    unit     go to state 31
 
 
-State 144
+State 143
 
    41 idlist: idlist COMMA IDENTIFIER LOP_ASSIGN expr .
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_OR            shift, and go to state 71
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_OR            shift, and go to state 70
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
     $default  reduce using rule 41 (idlist)
 
 
-State 145
+State 144
 
     5 for: FOR LP assignment SEMICOLON expr SEMICOLON expr . RP block
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_OR            shift, and go to state 71
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_OR            shift, and go to state 70
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
+    RP              shift, and go to state 147
+
+
+State 145
+
+    4 for: FOR LP declaration SEMICOLON expr SEMICOLON expr . RP block
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
+
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_OR            shift, and go to state 70
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
     RP              shift, and go to state 148
 
 
 State 146
 
-    4 for: FOR LP declaration SEMICOLON expr SEMICOLON expr . RP block
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
-
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_OR            shift, and go to state 71
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
-    RP              shift, and go to state 149
-
-
-State 147
-
    17 declsingle: T IDENTIFIER LOP_ASSIGN expr .
-   45 expr: expr . O_AND expr
-   46     | expr . O_OR expr
-   47     | expr . O_EQ expr
-   48     | expr . O_UEQ expr
-   49     | expr . O_GRE expr
-   50     | expr . O_LES expr
-   51     | expr . O_GREEQ expr
-   52     | expr . O_LESEQ expr
-   53     | expr . O_ADD expr
-   54     | expr . O_MINUS expr
-   55     | expr . O_MUL expr
-   56     | expr . O_DIV expr
-   57     | expr . O_MOD expr
-   60     | expr . O_DOUBLE_ADD
-   61     | expr . O_DOUBLE_MINUS
+   44 expr: expr . O_AND expr
+   45     | expr . O_OR expr
+   46     | expr . O_EQ expr
+   47     | expr . O_UEQ expr
+   48     | expr . O_GRE expr
+   49     | expr . O_LES expr
+   50     | expr . O_GREEQ expr
+   51     | expr . O_LESEQ expr
+   52     | expr . O_ADD expr
+   53     | expr . O_MINUS expr
+   54     | expr . O_MUL expr
+   55     | expr . O_DIV expr
+   56     | expr . O_MOD expr
+   59     | expr . O_DOUBLE_ADD
+   60     | expr . O_DOUBLE_MINUS
 
-    O_ADD           shift, and go to state 60
-    O_MINUS         shift, and go to state 61
-    O_MUL           shift, and go to state 62
-    O_DIV           shift, and go to state 63
-    O_EQ            shift, and go to state 64
-    O_UEQ           shift, and go to state 65
-    O_GRE           shift, and go to state 66
-    O_LES           shift, and go to state 67
-    O_GREEQ         shift, and go to state 68
-    O_LESEQ         shift, and go to state 69
-    O_AND           shift, and go to state 70
-    O_OR            shift, and go to state 71
-    O_MOD           shift, and go to state 72
-    O_DOUBLE_ADD    shift, and go to state 73
-    O_DOUBLE_MINUS  shift, and go to state 74
+    O_ADD           shift, and go to state 59
+    O_MINUS         shift, and go to state 60
+    O_MUL           shift, and go to state 61
+    O_DIV           shift, and go to state 62
+    O_EQ            shift, and go to state 63
+    O_UEQ           shift, and go to state 64
+    O_GRE           shift, and go to state 65
+    O_LES           shift, and go to state 66
+    O_GREEQ         shift, and go to state 67
+    O_LESEQ         shift, and go to state 68
+    O_AND           shift, and go to state 69
+    O_OR            shift, and go to state 70
+    O_MOD           shift, and go to state 71
+    O_DOUBLE_ADD    shift, and go to state 72
+    O_DOUBLE_MINUS  shift, and go to state 73
 
     $default  reduce using rule 17 (declsingle)
 
 
-State 148
+State 147
 
     5 for: FOR LP assignment SEMICOLON expr SEMICOLON expr RP . block
 
-    LC  shift, and go to state 94
+    LC  shift, and go to state 93
+
+    block  go to state 149
+
+
+State 148
+
+    4 for: FOR LP declaration SEMICOLON expr SEMICOLON expr RP . block
+
+    LC  shift, and go to state 93
 
     block  go to state 150
 
 
 State 149
 
-    4 for: FOR LP declaration SEMICOLON expr SEMICOLON expr RP . block
-
-    LC  shift, and go to state 94
-
-    block  go to state 151
-
-
-State 150
-
     5 for: FOR LP assignment SEMICOLON expr SEMICOLON expr RP block .
 
     $default  reduce using rule 5 (for)
 
 
-State 151
+State 150
 
     4 for: FOR LP declaration SEMICOLON expr SEMICOLON expr RP block .
 

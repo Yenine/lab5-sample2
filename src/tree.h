@@ -29,7 +29,7 @@ enum OperatorType
   OP_GREEQ,  // >=
   OP_LESEQ,  // <=
   OP_UEQ,  // !=
-  OP_NOT,
+  OP_NOT, //!
   OP_AND,  // &&
   OP_OR,  // ||
   OP_MOD,  // %
@@ -64,8 +64,16 @@ enum StmtType {
     STMT_DIV_ASSI,
 }
 ;
+struct Label {
+    string true_label;
+    string false_label;
+    string begin_label;
+    string next_label;
+};
 
 struct TreeNode {
+private:
+  int label_seq = 0;
 public:
     int nodeID;  // 用于作业的序号输出
     int lineno;
@@ -87,6 +95,19 @@ public:
     void genNodeId();
 
     Type* typeCheck();
+    string new_label();
+    void get_label();
+    void recursive_get_label();
+    void stmt_get_label();
+    void expr_get_label();
+
+  int get_temp_var();
+  void gen_header(ostream &out);
+  void gen_decl(ostream &out);
+  void gen_temp_var(ostream &out);
+  void recursive_gen_code(ostream &out);
+  void stmt_gen_code(ostream &out);
+  void expr_gen_code(ostream &out);
 
 public:
     OperatorType optype;  // 如果是表达式
@@ -98,6 +119,9 @@ public:
     string str_val;
     string var_name;
     int var_id;
+
+    Label label;
+    int temp_var;
 public:
     static string nodeType2String (NodeType type);
     static string opType2String (OperatorType type);
@@ -105,6 +129,17 @@ public:
 
 public:
     TreeNode(int lineno, NodeType type);
+  void gen_code(ostream &out);
 };
+class tree{
+private:
+  TreeNode *root;
+  int node_seq = 0;
+  int temp_var_seq = 0;
+  int label_seq = 0;
+public:
+
+};
+
 
 #endif

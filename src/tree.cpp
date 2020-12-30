@@ -1,4 +1,14 @@
 #include "tree.h"
+
+void movlNode(TreeNode* e,ostream &out,const string& reg="%eax"){
+  out << "\tmovl $";
+  if (e->nodeType == NODE_VAR)
+    out<<"_" << e->var_name<<e->var_id;
+  else if (e->nodeType == NODE_CONST)
+    out<< e->int_val;
+  else out << "t" << e->temp_var;
+  out << ", " <<reg<<endl;
+}
 void TreeNode::addChild(TreeNode* child) {
   if(this->child== nullptr){
     this->child=child;
@@ -342,7 +352,6 @@ Type* TreeNode::typeCheck() {
 //    }
   }
   if(this->nodeType==NODE_STMT){
-//    printf("hellkasd");
     if(this->stype==STMT_WHILE || this->stype==STMT_IF) {
       if(this->child->type->type!=VALUE_BOOL){
         cerr<<"Bad boolean type at line: " << this->lineno << endl;
@@ -364,15 +373,393 @@ Type* TreeNode::typeCheck() {
         cur=cur->sibling;
       }
     } else if(this->stype==STMT_ASSI ||this->stype==STMT_ADD_ASSI||this->stype==STMT_MINUS_ASSI){
+
       if(this->child->type->type!=this->child->sibling->type->type){
-        cerr << "Bad assign type at line: " << this->lineno << endl;
-        exit(1);
+//        cerr << "Bad assign type at line: " << this->lineno << endl;
+//        exit(1);
       }
     }
   }
   return this->type;
 }
+string TreeNode::new_label()
+{
+  char tmp[20];
+  sprintf(tmp, "@%d", TreeNode::label_seq);
+  TreeNode::label_seq++;
+  return tmp;
+}
+void TreeNode::stmt_get_label()
+{
+  switch (this->stype){
+//  case COMP_STMT:
+//  {
+//    Node *last;
+//    Node *p;
+//    for (p = t->children[0]; p->kind == DECL_NODE; p = p->sibling) ;
+//
+//    p->label.begin_label = t->label.begin_label;
+//    for (; p; p = p->sibling)
+//    {
+//      last = p;
+//      recursive_get_label(p);
+//    }
+//
+//    t->label.next_label = last->label.next_label;
+//    if (t->sibling)
+//      t->sibling->label.begin_label = t->label.next_label;
+//  }
+//    break;
 
+  case STMT_WHILE:
+  {
+    TreeNode *e = this->child;
+    TreeNode *s = this->child->sibling;
+
+    if (this->label.begin_label.empty())
+      this->label.begin_label = new_label();
+    s->label.next_label = this->label.begin_label;
+
+    s->label.begin_label = e->label.true_label = new_label();
+
+    if (this->label.next_label == "")
+      this->label.next_label = new_label();
+    e->label.false_label = this->label.next_label;
+    if (this->sibling)
+      this->sibling->label.begin_label = this->label.next_label;
+
+    e->recursive_get_label();
+    s->recursive_get_label();
+  }
+  case STMT_IF:
+  {
+    TreeNode *e = this->child;
+    TreeNode *s = this->child->sibling;
+
+    if (this->label.begin_label.empty())
+      this->label.begin_label = new_label();
+    s->label.next_label = this->label.begin_label;
+
+    s->label.begin_label = e->label.true_label = new_label();
+
+    if (this->label.next_label == "")
+      this->label.next_label = new_label();
+    e->label.false_label = this->label.next_label;
+    if (this->sibling)
+      this->sibling->label.begin_label = this->label.next_label;
+
+    e->recursive_get_label();
+    s->recursive_get_label();
+  }
+//  case STMT_FOR:
+//    TreeNode *e = this->child;
+//    TreeNode *s = this->child->sibling;
+//
+//    if (this->label.begin_label.empty())
+//      this->label.begin_label = new_label();
+//    s->label.next_label = this->label.begin_label;
+//
+//    s->label.begin_label = e->label.true_label = new_label();
+//
+//    if (this->label.next_label == "")
+//      this->label.next_label = new_label();
+//    e->label.false_label = this->label.next_label;
+//    if (this->sibling)
+//      this->sibling->label.begin_label = this->label.next_label;
+//
+//    e->recursive_get_label();
+//    s->recursive_get_label();
+//    break;
+
+  default:
+    if (this->sibling)
+      this->sibling->label.begin_label = this->label.next_label;
+    /* ... */
+  }
+}
+
+void TreeNode::expr_get_label()
+{
+  if (this->type->type != VALUE_BOOL)
+    return;
+
+  TreeNode *e1 = this->child;
+  TreeNode *e2 = this->child->sibling;
+  switch (this->optype)
+  {
+  case OP_OR:
+    e1->label.true_label = e2->label.true_label = this->label.true_label;
+    e1->label.false_label = new_label();
+    e2->label.false_label=this->label.false_label;
+    break;
+  case OP_AND:
+    e1->label.true_label = new_label();
+    e2->label.true_label = this->label.true_label;
+    e1->label.false_label = e2->label.false_label = this->label.false_label;
+    break;
+  case OP_NOT:
+    e1->label.true_label=this->label.false_label;
+    e1->label.false_label=this->label.true_label;
+    break;
+  default:
+    break;
+    /* ... */
+  }
+  if (e1)
+    e1->recursive_get_label();
+  if (e2)
+    e2->recursive_get_label();
+}
+
+void TreeNode::recursive_get_label(){
+  if (this->nodeType == NODE_STMT) {
+    this->stmt_get_label();
+  }else if (this->nodeType == NODE_EXPR){
+//    this->expr_get_label();
+  }else{
+    TreeNode *cur=this->child;
+    while (cur){
+      cur->recursive_get_label();
+      cur=cur->sibling;
+    }
+  }
+}
+
+void TreeNode::get_label()
+{
+  this->label.begin_label = "_start";
+  this->recursive_get_label();
+
+}
+
+void TreeNode::gen_header(ostream &out)
+{
+  out << "# your asm code header here" << endl;
+  /*your code here*/
+}
+
+void TreeNode::gen_decl(ostream &out){
+  if(this->stype==STMT_DECL){
+    TreeNode *p = this->child;
+    if(p->type->type == VALUE_INT){
+      p=p->sibling;
+      while(p){
+        out << "_" << p->var_name<<p->var_id<< ":" << endl;
+        out << "\t.zero\t4" << endl;
+        out << "\t.align\t4" << endl;
+        p=p->sibling;
+      }
+    }
+  }
+  TreeNode *cur=this->child;
+  while (cur){
+    cur->gen_decl(out);
+    cur=cur->sibling;
+  }
+}
+int TreeNode::get_temp_var(){
+  static int temp_var_seq=0;
+
+  if (this->nodeType!=NODE_EXPR) {
+    TreeNode *cur=this->child;
+    while (cur){
+      cur->get_temp_var();
+      cur=cur->sibling;
+    }
+    return temp_var_seq;
+  }
+  if (this->optype ==OP_NOT || this->optype>OP_DIV)
+    return temp_var_seq;
+
+  TreeNode *arg1 = this->child;
+  TreeNode *arg2 = this->child->sibling;
+
+  if (arg1->nodeType==NODE_EXPR) {
+    arg1->get_temp_var();
+    if (arg2 && arg2->nodeType==NODE_EXPR) {
+      arg2->get_temp_var();
+      temp_var_seq--;
+    }
+    temp_var_seq--;
+  } else{
+    if (arg2 && arg2->nodeType==NODE_EXPR) {
+      arg2->get_temp_var();
+      temp_var_seq--;
+    }
+  }
+
+  this->temp_var = temp_var_seq;
+  temp_var_seq++;
+  return temp_var_seq;
+}
+void TreeNode::gen_temp_var(ostream &out){
+  int temp_var_seq=this->get_temp_var();
+  for(int i=1;i<temp_var_seq;i++){
+    out<<"t"<<i<<":"<<endl;
+    out<<"\tDWORD  0"<<endl;
+  }
+}
+void TreeNode::stmt_gen_code(ostream &out) {
+  switch (this->stype) {
+  case STMT_WHILE:
+    if (this->label.begin_label != "")
+      out << this->label.begin_label << ":" << endl;
+    this->child->recursive_gen_code(out);
+    out << this->child->label.true_label<<":"<<endl;
+    this->child->sibling->recursive_gen_code(out);
+    out << "\tjmp " << this->label.begin_label << endl;
+    break;
+  case STMT_IF:
+    if (this->label.begin_label != "")
+      out << this->label.begin_label << ":" << endl;
+    this->child->recursive_gen_code(out);
+    out << this->child->label.true_label<<":"<<endl;
+    this->child->sibling->recursive_gen_code(out);
+    break;
+  case STMT_ASSI:
+    if (this->label.begin_label != "")
+      out << this->label.begin_label << ":" << endl;
+    this->child->sibling->recursive_gen_code(out);
+    out << "\tmovl %eax, $_"<<this->child->var_name<<this->child->var_id<<endl;
+    break;
+  }
+}
+//  if (t->kind_kind == COMP_STMT)
+//  {
+//    for (int i = 0; t->children[i]; i++)
+//    {
+//      recursive_gen_code(out, t->children[i]);
+//      for (Node *p = t->children[i]->sibling; p; p = p->sibling)
+//        recursive_gen_code(out, p);
+//    }
+
+//  else if (t->kind_kind == WHILE_STMT)
+//  {
+//    if (t->label.begin_label != "")
+//      out << t->label.begin_label << ":" << endl;
+//    recursive_gen_code(out, t->children[0]);
+//    recursive_gen_code(out, t->children[1]);
+//    out << "\tjmp " << t->label.begin_label << endl;
+//  }
+//  else if (t->kind_kind == PRINT_STMT)
+//  {
+//    /* ... */
+//  }
+  /* ... */
+
+
+
+void TreeNode::expr_gen_code(ostream &out)
+{
+  TreeNode *e1 = this->child;
+  TreeNode *e2 = this->child->sibling;
+  if(e1->nodeType==NODE_EXPR){
+    e1->expr_gen_code(out);
+  }
+  if(e2->nodeType==NODE_EXPR){
+    e2->expr_gen_code(out);
+  }
+  switch (this->optype)
+  {
+    case OP_ADD:case OP_MINUS:case OP_MUL:
+    out << "\tmovl $";
+    if (e1->nodeType == NODE_VAR)
+      out<<"_" << e1->var_name<<e1->var_id;
+    else if (e1->nodeType == NODE_CONST)
+      out<< e1->int_val;
+    else out << "t" << e1->temp_var;
+    out << ", %eax" <<endl;
+    if(this->optype==OP_ADD) {
+      out << "\taddl $";
+    } else if(this->optype==OP_MINUS) {
+      out << "\tsubl $";
+    } else if(this->optype==OP_MUL) {
+      out << "\timull $";
+    }
+    if (e2->nodeType == NODE_VAR)
+      out << "_" << e2->var_name<<e2->var_id;
+    else if (e2->nodeType == NODE_CONST)
+      out << e2->int_val;
+    else out << "t" << e2->temp_var;
+    out << ", %eax" << endl;
+    out << "\tmovl %eax, $t" << this->temp_var << endl;
+    break;
+  case OP_DIV:case OP_MOD:
+    movlNode(e1,out);
+    movlNode(e2,out,"ecx");
+    out << "\tcltd"<<endl;
+    out << "\tidivl %ecx"<<endl;
+    if(this->optype==OP_MOD) {
+      out << "\tmovl\t%edx, %eax";
+    }
+    out << "\tmovl %eax, $t" << this->temp_var << endl;
+  case OP_LES:case OP_GRE:case OP_LESEQ:case OP_GREEQ:case OP_EQ:case OP_UEQ:
+    out << "\tcmp $";
+    if (e1->nodeType == NODE_VAR)
+      out<<"_" << e1->var_name<<e1->var_id;
+    else if (e1->nodeType == NODE_CONST)
+      out<< e1->int_val;
+    else out << "t" << e1->temp_var;
+    out << ", $";
+    if (e2->nodeType == NODE_VAR)
+      out << "_" << e2->var_name<<e1->var_id<<endl;
+    else if (e2->nodeType == NODE_CONST)
+      out << e2->int_val<<endl;
+    else out << "t" << e2->temp_var<<endl;
+    if(this->optype==OP_GREEQ) {
+      out << "\tjl ";
+    } else if(this->optype==OP_GRE){
+      out << "\tjle ";
+    } else if(this->optype==OP_LES){
+      out << "\tjge ";
+    } else if(this->optype==OP_LESEQ){
+      out << "\tjg ";
+    } else if(this->optype==OP_EQ){
+      out << "\tjne ";
+    } else if(this->optype==OP_UEQ){
+      out << "\tje ";
+    }
+    out<< this->label.false_label << endl;
+    break;
+  case OP_AND:
+    out << "\t# your own code of AND operation here" << endl;
+    out << "\tjl @1" << endl;
+    out << "\t# your asm code of AND operation end" << endl;
+    /* ... */
+  default:
+    break;
+  }
+}
+//
+void TreeNode::recursive_gen_code(ostream &out){
+  if (this->nodeType == NODE_STMT){
+    this->stmt_gen_code(out);
+  } else if (this->nodeType == NODE_EXPR){
+    this->expr_gen_code(out);
+  }else if(this->nodeType == NODE_BLOCK ||this->nodeType == NODE_PROG ||this->nodeType==NODE_FUNC){
+    TreeNode *cur = this->child;
+    while (cur) {
+      cur->recursive_gen_code(out);
+      cur = cur->sibling;
+    }
+  }
+}
+
+void TreeNode::gen_code(ostream &out)
+{
+  gen_header(out);
+//  Node *p = root->children[0];
+//  if (p->kind == DECL_NODE)
+    this->gen_decl(out);
+    this->gen_temp_var(out);
+  out << endl << endl << "# your asm code here" << endl;
+  out << "\t.text" << endl;
+  out << "\t.globl _start" << endl;
+  this->recursive_gen_code(out);
+//  if (root->label.next_label != "")
+//    out << root->label.next_label << ":" << endl;
+//  out << "\tret" << endl;
+}
 string TreeNode::sType2String(StmtType type) {
     return "?";
 }

@@ -21,10 +21,13 @@ int main(int argc, char *argv[])
         }
     }
     yyparse();
+    ofstream out("out.s", ofstream::out | ios::binary);;
     if(root != NULL) {
         root->genNodeId();
         root->genSymbol();
         root->typeCheck();
+        root->get_label();
+        root->gen_code(out);
         root->printAST();
     }
     return 0;
