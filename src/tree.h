@@ -37,11 +37,11 @@ enum OperatorType
   OP_MINUS,  // -
   OP_MUL,  // *
   OP_DIV,  // /
+  OP_UMINUS,
   OP_AFT_MINUS,
   OP_AFT_ADD,
   OP_PRE_MINUS,
   OP_PRE_ADD,
-  OP_UMINUS,
   OP_ADDRESS,
 };
 
@@ -57,6 +57,7 @@ enum StmtType {
 
     STMT_SKIP,
     STMT_DECL,
+    STMT_DECL_CONST,
     STMT_ASSI,
     STMT_ADD_ASSI,
     STMT_MINUS_ASSI,
@@ -85,29 +86,22 @@ public:
     void addChild(TreeNode*);
     void addSibling(TreeNode*);
     
-    void printNodeInfo();
-    void printChildrenId();
+    void printNodeInfo(ostream &out);
+    void printChildrenId(ostream &out);
 
-    void printAST(); // 先输出自己 + 孩子们的id；再依次让每个孩子输出AST。
-    void printSpecialInfo();
+    void printAST(ostream &out); // 先输出自己 + 孩子们的id；再依次让每个孩子输出AST。
+    void printSpecialInfo(ostream &out);
 
-    void genSymbol();
     void genNodeId();
 
-    Type* typeCheck();
-    string new_label();
-    void get_label();
-    void recursive_get_label();
-    void stmt_get_label();
-    void expr_get_label();
+  void typeCheck();
 
-  int get_temp_var();
-  void gen_header(ostream &out);
+//  void recursive_get_label();
+//  int stmt_get_label(int lab_seq);
+//  int expr_get_label(int lab_seq);
+//  void genSymbol();
+
   void gen_decl(ostream &out);
-  void gen_temp_var(ostream &out);
-  void recursive_gen_code(ostream &out);
-  void stmt_gen_code(ostream &out);
-  void expr_gen_code(ostream &out);
 
 public:
     OperatorType optype;  // 如果是表达式
@@ -129,16 +123,44 @@ public:
 
 public:
     TreeNode(int lineno, NodeType type);
-  void gen_code(ostream &out);
-};
-class tree{
-private:
-  TreeNode *root;
-  int node_seq = 0;
-  int temp_var_seq = 0;
-  int label_seq = 0;
-public:
 
+};
+class Tree{
+private:
+//  int node_seq;
+//  int temp_var_seq;
+//  int text_seq;
+public:
+  char filename[20];
+  int label_seq;
+  int temp_var_seq;
+  int temp_var_nums;
+  map<string,int> string_map;
+  TreeNode *root;
+  Tree(TreeNode *root){
+    this->root=root;
+    this->label_seq=temp_var_nums=temp_var_seq=0;
+//    this->string_map=new map<string,int>;
+//    printf("%d",this->string_map->size());
+  }
+  void genSymbol(TreeNode *t);
+  void genText(ostream &out);
+  string new_label();
+  void get_label();
+  void recursive_get_label(TreeNode *t);
+  void stmt_get_label(TreeNode *t);
+  void expr_get_label(TreeNode *t);
+
+  void gen_code(ostream &out);
+  void gen_header(ostream &out);
+
+  void get_temp_var(TreeNode *t);
+  void gen_temp_var(ostream &out);
+
+  void recursive_gen_code(ostream &out,TreeNode *t);
+  void stmt_gen_code(ostream &out,TreeNode *t);
+  void expr_gen_code(ostream &out,TreeNode *t);
+  void func_gen_code(ostream &out,TreeNode *t);
 };
 
 

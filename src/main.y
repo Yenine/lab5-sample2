@@ -2,6 +2,7 @@
     #include "common.h"
     #define YYSTYPE TreeNode *  
     TreeNode* root;
+    Tree* tree;
     extern int lineno;
     int yylex();
     int yyerror( char const * );
@@ -10,6 +11,7 @@
     map<string,int> *SymMap=GlobalSymbolTable;
     list<map<string,int>*> STlist;
     map<int,map<string,int>*> STmap;
+    map<string,int> string_map;
 
 %}
 %token T_CHAR T_INT T_STRING T_BOOL 
@@ -21,6 +23,7 @@
 
 %token SEMICOLON COMMA
 %token WHILE IF ELSE FOR RET BRK
+%token CONST
 %token LP RP LC RC
 %token IDENTIFIER INTEGER CHAR BOOL STRING
 
@@ -33,8 +36,7 @@
 %left O_AND
 %left O_EQ O_UEQ O_GRE O_LES O_GREEQ O_LESEQ
 %left O_ADD O_MINUS
-%left O_MOD
-%left O_MUL O_DIV
+%left O_MOD O_MUL O_DIV
 %right O_NOT O_ADDRESS
 %right PRE_ADD PRE_MINUS UMINUS
 %left AFT_ADD AFT_MINUS
@@ -44,7 +46,11 @@
 
 program
 : statements {
-root = new TreeNode(0, NODE_PROG); root->addChild($1);};
+root = new TreeNode(0, NODE_PROG);
+ tree = new Tree(root);
+ root->addChild($1);
+ tree->string_map=string_map;
+};
 
 statements
 :  statement {$$=$1;}
@@ -64,27 +70,58 @@ statements
 //}
 //|  statements IF LP expr RP
 ;
-for
-: FOR LP declaration SEMICOLON expr SEMICOLON expr RP block{
-		TreeNode* node = new TreeNode($1->lineno+1, NODE_STMT);
-		node->stype = STMT_FOR;
-                node->addChild($9);
-                $7->sibling=$9->child;
-                $9->child=$3;
-                $9->addChild($5);
-                $9->addChild($7);
-                $$=node;
-}
-| FOR LP assignment SEMICOLON expr SEMICOLON expr RP block{
+for:
+// FOR LP declaration SEMICOLON expr SEMICOLON expr RP block{
+//		TreeNode* node = new TreeNode($1->lineno+1, NODE_STMT);
+//		node->stype = STMT_FOR;
+//                node->addChild($9);
+//                $7->sibling=$9->child;
+//                $9->child=$3;
+//                $9->addChild($5);
+//                $9->addChild($7);
+//                $$=node;
+//}
+ FOR LP statement statement stmtunit RP block{
  		TreeNode* node = new TreeNode($1->lineno+1, NODE_STMT);
  		node->stype = STMT_FOR;
-                node->addChild($9);
-                $7->sibling=$9->child;
-                $9->child=$3;
-                $9->addChild($5);
-                $9->addChild($7);
+                TreeNode* whilenode = new TreeNode($1->lineno+1, NODE_STMT);
+                		whilenode->stype = STMT_WHILE;
+                                whilenode->addChild($4);
+                                $7->addChild($5);
+                                whilenode->addChild($7);
+
+                node->addChild($3);
+                node->addChild(whilenode);
+
+
                  $$=node;
  }
+//  FOR LP statement statement stmtunit RP block{
+//  		TreeNode* node = new TreeNode($1->lineno+1, NODE_STMT);
+//  		node->stype = STMT_FOR;
+//                 node->addChild($7);
+//
+//                 TreeNode* ifnode = new TreeNode($1->lineno+1, NODE_STMT);
+//                 		ifnode->stype = STMT_IF;
+//                                 ifnode->addChild($4);
+//                                 ifnode->addChild($7);
+//
+//                 $5->sibling=$7->child;
+//                 $7->child=$3;
+//                 $7->addChild($4);
+//                 $7->addChild($5);
+//                  $$=node;
+//  }
+//| FOR LP statement statement RP block{
+//  		TreeNode* node = new TreeNode($1->lineno+1, NODE_STMT);
+//  		node->stype = STMT_FOR;
+//                 node->addChild($9);
+//                 $7->sibling=$9->child;
+//                 $9->child=$3;
+//                 $9->addChild($5);
+//                 $9->addChild($7);
+//                  $$=node;
+//  }
 ;
 if
 : if else{
@@ -164,14 +201,14 @@ declsingle
     node->addChild($2);
     $$ = node;
  }
-| T IDENTIFIER LOP_ASSIGN expr{
-	TreeNode* node = new TreeNode($1->lineno, NODE_STMT);
-    node->stype = STMT_DECL;
-    node->addChild($1);
-    node->addChild($2);
-    node->addChild($4);
-    $$ = node;
-}
+//| T IDENTIFIER LOP_ASSIGN expr{
+//	TreeNode* node = new TreeNode($1->lineno, NODE_STMT);
+//    node->stype = STMT_DECL;
+//    node->addChild($1);
+//    node->addChild($2);
+//    node->addChild($4);
+//    $$ = node;
+//}
 ;
 funcall
 : IDENTIFIER LP params RP {
@@ -206,14 +243,20 @@ block
 		}
 ;
 
+stmtunit:
+| declaration {$$ = $1;}
+| assignment {$$ = $1;}
+| expr {$$ = $1;}
+| funcall {$$ = $1;}
 
 
 statement
 : SEMICOLON  {$$ = new TreeNode(lineno, NODE_STMT); $$->stype = STMT_SKIP;}
-| declaration SEMICOLON {$$ = $1;}
-| assignment SEMICOLON {$$ = $1;}
-| expr SEMICOLON{$$ = $1;}
-| funcall SEMICOLON{$$ = $1;}
+| stmtunit SEMICOLON
+//| declaration SEMICOLON {$$ = $1;}
+//| assignment SEMICOLON {$$ = $1;}
+//| expr SEMICOLON{$$ = $1;}
+//| funcall SEMICOLON{$$ = $1;}
 | fundes{$$ = $1;}
 | if{$$ = $1;}
 | for{$$ = $1;}
@@ -256,30 +299,42 @@ assignment
 }
 | IDENTIFIER LOP_ADD_ASSIGN expr{
 	TreeNode* node = new TreeNode($1->lineno, NODE_STMT);
-    	node->stype = STMT_ADD_ASSI;
+    	node->stype = STMT_ASSI;
     	node->addChild($1);
+    	node->optype=OP_ADD;
     	node->addChild($3);
     	$$ = node;
 }
 | IDENTIFIER LOP_MINUS_ASSIGN expr{
 	TreeNode* node = new TreeNode($1->lineno, NODE_STMT);
-    	node->stype = STMT_MINUS_ASSI;
-    	node->addChild($1);
+    	node->stype = STMT_ASSI;
+	node->addChild($1);
+    	node->optype=OP_MINUS;
     	node->addChild($3);
     	$$ = node;
 }
 | IDENTIFIER LOP_MUL_ASSIGN expr{
 	TreeNode* node = new TreeNode($1->lineno, NODE_STMT);
-    	node->stype = STMT_MUL_ASSI;
+    	node->stype = STMT_ASSI;
     	node->addChild($1);
-    	node->addChild($3);
+//    	node->stype = STMT_ADD_ASSI;
+    	TreeNode* temp = new TreeNode($1->lineno, NODE_EXPR);
+    	temp->optype=OP_MUL;
+    	temp->addChild($1);
+    	temp->addChild($3);
+    	node->addChild(temp);
     	$$ = node;
 }
 | IDENTIFIER LOP_DIV_ASSIGN expr{
 	TreeNode* node = new TreeNode($1->lineno, NODE_STMT);
-    	node->stype = STMT_DIV_ASSI;
+    	node->stype = STMT_ASSI;
     	node->addChild($1);
-    	node->addChild($3);
+//    	node->stype = STMT_ADD_ASSI;
+    	TreeNode* temp = new TreeNode($1->lineno, NODE_EXPR);
+    	temp->optype=OP_DIV;
+    	temp->addChild($1);
+    	temp->addChild($3);
+    	node->addChild(temp);
     	$$ = node;
 }
 ;
@@ -291,7 +346,15 @@ declaration
     node->addChild($2);
     $$ = node;
 }
+| CONST T idlist{
+	TreeNode* node = new TreeNode($2->lineno, NODE_STMT);
+            node->stype = STMT_DECL_CONST;
+            node->addChild($2);
+            node->addChild($3);
+            $$ = node;
+}
 ;
+
 idlist
 : idlist COMMA IDENTIFIER{
                            $$=$1;
@@ -299,21 +362,31 @@ idlist
  }
 | idlist COMMA IDENTIFIER LOP_ASSIGN expr{
 			$$=$1;
-                        $$->addSibling($3);
-                        $$->addSibling($5);
+//			$$->addSibling($3);
+			TreeNode* node = new TreeNode($1->lineno, NODE_STMT);
+                        node->stype = STMT_ASSI;
+                        	node->addChild($3);
+                        	node->addChild($5);
+                        $$->addSibling(node);
 }
 | IDENTIFIER{
                 $$ = $1;
 }
 | IDENTIFIER LOP_ASSIGN expr{
-		$$ = $1;
-		$$->addSibling($3);
+//		$$ = $1;
+//		$$->addSibling($3);
+
+		TreeNode* node = new TreeNode($1->lineno, NODE_STMT);
+                                node->stype = STMT_ASSI;
+                                node->addChild($1);
+                                node->addChild($3);
+                $$=node;
 }
 ;
 
-expr:
-//: assignment
- expr O_AND expr{
+expr
+: assignment
+| expr O_AND expr{
  	TreeNode* node = new TreeNode($1->lineno, NODE_EXPR);
  	node->optype=OP_AND;
  	node->addChild($1);
@@ -441,7 +514,6 @@ expr:
         $$=node;
 }
 | LP expr RP{
-	printf("hello");
 //	TreeNode* node = new TreeNode(10, NODE_EXPR);
 //	node->addChild($2);
 	$$=$2;
@@ -462,6 +534,16 @@ IDENTIFIER {
     $$ = $1;
 }
 | STRING {
+//printf("%s",$1->str_val);
+//	if(tree->string_map){
+//	printf("%d",tree->string_map->size());
+//	};
+//	printf("hasdasddsasadello");
+//	printf("%s",$1->str_val);
+//		printf(tree->string_map[$1->str_val].c_str();
+	if(string_map[$1->str_val]==0){
+		string_map[$1->str_val]=string_map.size();
+	}
     $$ = $1;
 }
 | funcall{

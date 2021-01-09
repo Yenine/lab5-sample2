@@ -18,7 +18,7 @@ lex: src/main.lex.yy.c
 yacc: src/main.tab.c
 
 main: src/pch.h.gch
-	$(CC) $(CFLAGS) $(shell ls ./src/*.cpp) -o ./bin/main
+	$(CC) $(CFLAGS) $(shell ls ./src/*.cpp) -o ./bin/main.out
 
 .PHONY: all clean main run lex yacc test debug link testscope asm nasm example-code out
 

@@ -10,9 +10,11 @@ LINECOMMENT \/\/[^\n]*
 EOL	(\r\n|\r|\n)
 WHILTESPACE [[:blank:]]
 
-INTEGER [0-9]+
+INTEGER [1-9]+[0-9]*|[0]
+HEX_INTEGER 0x[0-9a-f]+
+OCT_INTEGER 0[0-7]+
 
-CHAR \'.?\'
+CHAR \'[\\]?.?\'
 STRING \".+\"
 
 IDENTIFIER [[:alpha:]_][[:alpha:][:digit:]_]*
@@ -72,6 +74,7 @@ LOGOP \&\&|\|\|
 "for" return FOR;
 "return" return RET;
 "break" return BRK;
+"const" return CONST;
 
 {INTEGER} {
     TreeNode* node = new TreeNode(lineno, NODE_CONST);
@@ -80,11 +83,35 @@ LOGOP \&\&|\|\|
     yylval = node;
     return INTEGER;
 }
+{HEX_INTEGER} {
+    TreeNode* node = new TreeNode(lineno, NODE_CONST);
+    node->type = TYPE_INT;
+    node->int_val = strtol(yytext,nullptr,16);
+    yylval = node;
+    return INTEGER;
+}
+{OCT_INTEGER} {
+    TreeNode* node = new TreeNode(lineno, NODE_CONST);
+    node->type = TYPE_INT;
+    node->int_val = strtol(yytext,nullptr,8);
+    yylval = node;
+    return INTEGER;
+}
 
 {CHAR} {
     TreeNode* node = new TreeNode(lineno, NODE_CONST);
     node->type = TYPE_CHAR;
-    node->int_val = yytext[1];
+    if(yytext[1]==92){
+        if(yytext[2]==92){
+            node->int_val = yytext[1];
+        }else if(yytext[2]==110){
+            node->int_val = 10;
+        }else if(yytext[2]==116){
+            node->int_val = 11;
+        }
+    }else{
+        node->int_val = yytext[1];
+    }
     yylval = node;
     return CHAR;
 }
@@ -93,6 +120,7 @@ LOGOP \&\&|\|\|
     TreeNode* node = new TreeNode(lineno, NODE_CONST);
     node->type = TYPE_STRING;
     node->str_val = string(yytext);
+
     yylval = node;
     return STRING;
 }
