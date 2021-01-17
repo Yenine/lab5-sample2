@@ -29,7 +29,7 @@ void getMov(TreeNode* e,ostream &out){
       out <<"\tmovb $";
     }
   } else
-    out<<"movl ";
+    out<<"\tmovl ";
 }
 void TreeNode::addChild(TreeNode* child) {
   if(this->child== nullptr){
@@ -513,10 +513,12 @@ void TreeNode::typeCheck() {
       }
     }
     else if(this->stype==STMT_ASSI ||this->stype==STMT_ADD_ASSI||this->stype==STMT_MINUS_ASSI){
-//      if(this->child->type->type!=this->child->sibling->type->type){
-//        cout << "Bad assign type at line: " << this->lineno << endl;
-//        exit(1);
-//      }
+      if(this->child->type&&this->child->sibling->type) {
+        if (this->child->type->type != this->child->sibling->type->type) {
+          cout << "Bad assign type at line: " << this->lineno << endl;
+          exit(1);
+        }
+      }
     }
   }
 }
@@ -726,6 +728,8 @@ void Tree::get_temp_var(TreeNode *t){
     TreeNode *cur=t->child;
     while (cur){
       this->get_temp_var(cur);
+      if(cur->nodeType==NODE_EXPR&&(cur->optype >=OP_MOD && cur->optype <=OP_UMINUS))
+        temp_var_seq--;
       cur=cur->sibling;
     }
     return;
@@ -738,29 +742,27 @@ void Tree::get_temp_var(TreeNode *t){
     this->get_temp_var(arg1);
     if (arg2 && arg2->nodeType==NODE_EXPR) {
       this->get_temp_var(arg2);
-      if (arg2->optype >OP_MOD && arg2->optype <OP_UMINUS) {
+      if (arg2->optype >=OP_MOD && arg2->optype <=OP_UMINUS) {
         temp_var_seq--;
       }
     }
-    if (arg1->optype >OP_MOD && arg1->optype <OP_UMINUS) {
+    if (arg1->optype >=OP_MOD && arg1->optype <=OP_UMINUS) {
       temp_var_seq--;
     }
   } else{
     if (arg2 && arg2->nodeType==NODE_EXPR) {
       this->get_temp_var(arg2);
-      if (arg2->optype >OP_MOD && arg2->optype <OP_UMINUS) {
+      if (arg2->optype >=OP_MOD && arg2->optype <=OP_UMINUS) {
         temp_var_seq--;
       }
     }
   }
   if ((t->optype <OP_MOD || t->optype >OP_UMINUS)) {
-//    temp_var_seq++;
     return;
   }
   t->temp_var = temp_var_seq;
 //  cout<<"@"<<t->nodeID<<" "<<t->temp_var<<endl;
   temp_var_seq++;
-
   if(temp_var_seq>temp_var_nums){
     temp_var_nums=temp_var_seq;
   }
@@ -876,7 +878,7 @@ void Tree::stmt_gen_code(ostream &out,TreeNode *t) {
       this->recursive_gen_code(out,t->child->sibling);
     }else if(t->child->sibling->nodeType==NODE_VAR){
       getMov(t->child->sibling,out);
-      out<<t->child->sibling->var_name<<t->child->sibling->var_id<<", %eax"<<endl;
+      out<<"_"<<t->child->sibling->var_name<<t->child->sibling->var_id<<", %eax"<<endl;
     }else{
       movlNode(t->child->sibling,out);
     }
